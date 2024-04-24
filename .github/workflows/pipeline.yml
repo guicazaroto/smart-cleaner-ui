@@ -19,19 +19,14 @@ jobs:
       REGISTRY_URL: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: '20'
-        cache: 'npm'
-    - run: npm install --production
-    # - run: docker build -t $MODULE_FULLNAME .
-    # - run: |
-    #     docker tag $MODULE_FULLNAME:$TAG \
-    #     $REGISTRY_URL/$MODULE_FULLNAME:$TAG
-    # - run: | 
-    #     aws ecr get-login-password --region $AWS_REGION | \
-    #     docker login --username AWS --password-stdin $REGISTRY_URL
-    # - run: docker push $REGISTRY_URL/$MODULE_FULLNAME:$TAG
+    - run: docker build -t $MODULE_FULLNAME .
+    - run: |
+        docker tag $MODULE_FULLNAME:$TAG \
+        $REGISTRY_URL/$MODULE_FULLNAME:$TAG
+    - run: | 
+        aws ecr get-login-password --region $AWS_REGION | \
+        docker login --username AWS --password-stdin $REGISTRY_URL
+    - run: docker push $REGISTRY_URL/$MODULE_FULLNAME:$TAG
     - uses: actions/upload-artifact@v3
       with:
         name: ebconfig
