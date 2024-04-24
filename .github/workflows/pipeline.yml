@@ -19,11 +19,6 @@ jobs:
       REGISTRY_URL: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: '20'
-        cache: 'npm'
-    - run: npm install --production
     - run: docker build -t $MODULE_FULLNAME .
     - run: |
         docker tag $MODULE_FULLNAME:$TAG \
