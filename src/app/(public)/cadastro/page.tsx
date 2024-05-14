@@ -42,6 +42,7 @@ const RegistrationPage: React.FC = () => {
               )}
             </div>
             <input
+              required
               type="file"
               id="photo"
               name="photo"
@@ -54,6 +55,7 @@ const RegistrationPage: React.FC = () => {
             <div className="mb-4">
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Nome</label>
               <input
+                required
                 type="text"
                 id="name"
                 name="name"
@@ -64,6 +66,7 @@ const RegistrationPage: React.FC = () => {
             <div className="mb-4">
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
               <input
+                required
                 type="email"
                 id="email"
                 name="email"
@@ -74,6 +77,7 @@ const RegistrationPage: React.FC = () => {
             <div className="mb-4">
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Telefone</label>
               <input
+                required
                 type="tel"
                 id="phone"
                 name="phone"
@@ -84,6 +88,7 @@ const RegistrationPage: React.FC = () => {
             <div className="mb-4">
               <label htmlFor="cpf" className="block text-sm font-medium text-gray-700 mb-1">CPF</label>
               <input
+                required
                 type="text"
                 id="cpf"
                 name="cpf"
@@ -94,6 +99,7 @@ const RegistrationPage: React.FC = () => {
             <div className="mb-4">
               <label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-700 mb-1">Data de Nascimento</label>
               <input
+                required
                 type="date"
                 id="dateOfBirth"
                 name="dateOfBirth"
@@ -105,6 +111,7 @@ const RegistrationPage: React.FC = () => {
             <div className="mb-4">
               <label htmlFor="cep" className="block text-sm font-medium text-gray-700 mb-1">CEP</label>
               <input
+                required
                 type="text"
                 id="cep"
                 name="cep"
@@ -116,6 +123,7 @@ const RegistrationPage: React.FC = () => {
             <div className="mb-4">
               <label htmlFor="street" className="block text-sm font-medium text-gray-700 mb-1">Rua</label>
               <input
+                required
                 type="text"
                 id="street"
                 name="street"
@@ -127,6 +135,7 @@ const RegistrationPage: React.FC = () => {
             <div className="mb-4">
               <label htmlFor="number" className="block text-sm font-medium text-gray-700 mb-1">Número</label>
               <input
+                required
                 type="text"
                 id="number"
                 name="number"
@@ -138,6 +147,7 @@ const RegistrationPage: React.FC = () => {
             <div className="mb-4">
               <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">Cidade</label>
               <input
+                required
                 type="text"
                 id="city"
                 name="city"
@@ -148,6 +158,7 @@ const RegistrationPage: React.FC = () => {
             <div className="mb-4">
               <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">Estado</label>
               <input
+                required
                 type="text"
                 id="state"
                 name="state"
