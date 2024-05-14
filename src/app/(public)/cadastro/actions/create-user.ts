@@ -3,7 +3,8 @@
 import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation";
 
-interface UserData {
+export interface UserData {
+  id: string;
   photo: string;
   name: string;
   email: string;
