@@ -1,6 +1,7 @@
 // components/MaidCard.js
 
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const MaidCard = ({ maid }: any) => {
@@ -22,9 +23,9 @@ const MaidCard = ({ maid }: any) => {
         </p>
       </div>
       <div className="px-6 py-4">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Contratar
-        </button>
+          <Link href={`/contratar/${maid.id}`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Contratar
+          </Link>
       </div>
     </div>
   );
