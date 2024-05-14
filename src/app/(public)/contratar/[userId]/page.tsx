@@ -1,6 +1,5 @@
 import Image from "next/image"
 import { getUserById } from "./services/get-user-profile"
-import { use } from "react"
 import { getUsers } from "../services/getUsers";
 import { UserData } from "../../cadastro/actions/create-user";
 

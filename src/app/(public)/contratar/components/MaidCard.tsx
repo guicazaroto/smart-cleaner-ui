@@ -4,7 +4,7 @@ import Image from 'next/image';
 import React from 'react';
 
 const MaidCard = ({ maid }: any) => {
-  const { photo, name, city } = maid;
+  const { name, city } = maid;
 
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg">
