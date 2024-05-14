@@ -4,7 +4,7 @@ import Image from 'next/image';
 import React from 'react';
 
 const MaidCard = ({ maid }: any) => {
-  const { photo, name, city, distance } = maid;
+  const { photo, name, city } = maid;
 
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg">
@@ -18,7 +18,7 @@ const MaidCard = ({ maid }: any) => {
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{name}</div>
         <p className="text-gray-700 text-base">
-          {city} - {distance} km
+          {city} 
         </p>
       </div>
       <div className="px-6 py-4">
