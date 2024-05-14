@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Image from "next/image";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,7 +22,9 @@ export default function RootLayout({
       <header className="bg-white shadow-md">
           <div className="container mx-auto flex justify-between items-center py-4 px-8">
             <div className="flex items-center">
-              <span className="font-bold text-xl text-blue-500">SmartCleaner</span>
+              <Link href="/">
+                <span className="font-bold text-xl text-blue-500">SmartCleaner</span>
+              </Link>
             </div>
             <nav>
               <ul className="flex space-x-8">
