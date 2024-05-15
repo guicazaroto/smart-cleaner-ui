@@ -2,6 +2,7 @@ import Image from "next/image"
 import { getUserById } from "./services/get-user-profile"
 import { getUsers } from "../services/getUsers";
 import { UserData } from "../../cadastro/actions/create-user";
+import Calendar from "../components/Calendar";
 
 export async function generateStaticParams() {
   const users = await getUsers();
@@ -15,7 +16,7 @@ export default async function Perfil ({params}: { params: { userId: string }} ) 
 
 
   return (
-    <div className="py-5 min-h-screen bg-gray-100 flex justify-center items-center">
+    <div className="py-5 min-h-screen bg-gray-100 flex justify-around">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-lg">
         <h2 className="text-2xl font-bold mb-4 text-center">Perfil do Usuário</h2>
         <div className="flex justify-center items-center mb-4">
@@ -55,6 +56,9 @@ export default async function Perfil ({params}: { params: { userId: string }} ) 
             <p className="text-gray-700" id="bio">{user.bio}</p>
           </div>
         </div>
+
+        <Calendar />
+
       </div>
     </div>
   )
