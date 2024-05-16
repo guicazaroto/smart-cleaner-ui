@@ -10,7 +10,7 @@ const LandingPage = () => {
         <div className="container mx-auto flex justify-around items-center">
         <div className="w-1/2 pl-8">
           <h1 className="text-4xl font-bold mb-4">O jeito mais fácil de contratar uma diarista</h1>
-          <p className="text-lg mb-8">Nosso site oferece uma maneira simples e confiável de contratar diaristas para ajudar com suas tarefas domésticas. Com uma ampla gama de profissionais qualificados, você pode encontrar o candidato perfeito para atender às suas necessidades.</p>
+          <p className="text-lg mb-8">Nosso site oferece uma maneira simples e confiável de contratar diaristas para ajudar com suas tarefas domésticas.</p>
           <a
             href="/contratar"
             className="bg-white text-blue-500 font-bold py-2 px-8 rounded-full transition duration-300 inline-block"
