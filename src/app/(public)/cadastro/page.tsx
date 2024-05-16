@@ -7,6 +7,24 @@ import Steppers from './components/Steppers';
 
 const RegistrationPage: React.FC = () => {
   const [step, setStep] = React.useState(1);
+  const [userData, setUserData] = React.useState({
+    name: '',
+    email: '',
+    password: '',
+    passwordConfirmation: '',
+    active: true,
+    telefone: '',
+    cpf: '',
+    data_nascimento: '',
+    cep: '',
+    logradouro: '',
+    numero: '',
+    cidade: '',
+    uf: '',
+    descricao: ''
+  })
+
+  const props = {  setStep, userData, setUserData }
 
   return (
     <>
@@ -20,8 +38,8 @@ const RegistrationPage: React.FC = () => {
       <div className="bg-white p-8 rounded shadow-md w-full max-w-lg">
         <Steppers step={step} setStep={setStep} />
 
-        {step === 1 &&  <CredentialsForm setStep={setStep} /> }
-        {step === 2 &&  <ProfileForm setStep={setStep} /> }
+        {step === 1 &&  <CredentialsForm {...props} /> }
+        {step === 2 &&  <ProfileForm {...props} /> }
       </div>
     </div>
     </>

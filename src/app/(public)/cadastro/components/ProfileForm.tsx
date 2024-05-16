@@ -2,8 +2,10 @@
 import { ChangeEvent, useState } from "react";
 import { SubmitButton } from "./SubmitButton";
 import { createUser } from '../actions/create-user';
+import { formatCPF } from "@/helpers/formatCpf";
+import { formatPhoneNumber } from "@/helpers/formatPhone";
 
-export default function ProfileForm ({ setStep }: any) {
+export default function ProfileForm ({ setStep, userData, setUserData }: any) {
   const [photo, setPhoto] = useState<string>('');
 
   const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -19,10 +21,25 @@ export default function ProfileForm ({ setStep }: any) {
     }
   };
 
+  const handlePhoneInputChange = (event: any) => {
+    const inputValue = event.target.value;
+    const formattedValue = formatPhoneNumber(inputValue);
+    setUserData({...userData, telefone: formattedValue })
+  };
+
+  const handleCpfInputChange = (event: any) => {
+    const inputValue = event.target.value;
+    const formattedValue = formatCPF(inputValue);
+    setUserData({...userData, cpf: formattedValue })
+  };
+
+
+
 
   return (
     <form action={createUser}>
-      <div className="mb-4 flex justify-center items-center">
+      {/* USER AVATAR */}
+      {/* <div className="mb-4 flex justify-center items-center">
         <div 
           onClick={() => document.getElementById('photo')?.click()}
           className="w-32 h-32 bg-gray-200 rounded-full overflow-hidden mb-2 cursor-pointer"
@@ -36,6 +53,7 @@ export default function ProfileForm ({ setStep }: any) {
             </div>
           )}
         </div>
+
         <input
           required
           type="file"
@@ -45,27 +63,33 @@ export default function ProfileForm ({ setStep }: any) {
           onChange={handlePhotoChange}
           className="mt-1 block w-full hidden"
         />
-      </div>
+      </div> */}
+      {/* END USER AVATAR */}
+
       <div className="grid grid-cols-1">
         <div className="mb-4">
-            <label htmlFor="name" className="w-full block text-sm font-medium text-gray-700 mb-1">Nome</label>
-            <input
-              required
-              type="text"
-              id="name"
-              name="name"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
-            />
-          </div>
+          <label htmlFor="name" className="w-full block text-sm font-medium text-gray-700 mb-1">Nome</label>
+          <input
+            required
+            type="text"
+            id="name"
+            name="name"
+            value={userData.name}
+            onChange={(e) => setUserData({...userData, name: e.target.value})}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
+          />
+        </div>
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div className="mb-4">
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Telefone</label>
+          <label htmlFor="telefone" className="block text-sm font-medium text-gray-700 mb-1">Telefone</label>
           <input
             required
             type="tel"
-            id="phone"
-            name="phone"
+            id="telefone"
+            name="telefone"
+            value={userData.telefone}
+            onChange={handlePhoneInputChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
           />
         </div>
@@ -76,16 +100,20 @@ export default function ProfileForm ({ setStep }: any) {
             type="text"
             id="cpf"
             name="cpf"
+            value={userData.cpf}
+            onChange={handleCpfInputChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-700 mb-1">Data de Nascimento</label>
+          <label htmlFor="data_nascimento" className="block text-sm font-medium text-gray-700 mb-1">Data de Nascimento</label>
           <input
             required
             type="date"
-            id="dateOfBirth"
-            name="dateOfBirth"
+            id="data_nascimento"
+            name="data_nascimento"
+            value={userData.data_nascimento}
+            onChange={(e) => setUserData({...userData, data_nascimento: e.target.value})}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
           />
         </div>
@@ -97,19 +125,22 @@ export default function ProfileForm ({ setStep }: any) {
             type="text"
             id="cep"
             name="cep"
+            value={userData.cep}
+            onChange={(e) => setUserData({...userData, cep: e.target.value})}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
           />
         </div>
 
         <div className="mb-4">
-          <label htmlFor="street" className="block text-sm font-medium text-gray-700 mb-1">Rua</label>
+          <label htmlFor="logradouro" className="block text-sm font-medium text-gray-700 mb-1">Rua</label>
           <input
             required
             type="text"
-            id="street"
-            name="street"
+            id="logradouro"
+            name="logradouro"
+            value={userData.logradouro}
+            onChange={(e) => setUserData({...userData, logradouro: e.target.value})}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
-
           />
         </div>
 
@@ -120,38 +151,46 @@ export default function ProfileForm ({ setStep }: any) {
             type="text"
             id="number"
             name="number"
+            value={userData.numero}
+            onChange={(e) => setUserData({...userData, numero: e.target.value})}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
           />
         </div>
 
         <div className="mb-4">
-          <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">Cidade</label>
+          <label htmlFor="cidade" className="block text-sm font-medium text-gray-700 mb-1">Cidade</label>
           <input
             required
             type="text"
-            id="city"
-            name="city"
+            id="cidade"
+            name="cidade"
+            value={userData.cidade}
+            onChange={(e) => setUserData({...userData, cidade: e.target.value})}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">Estado</label>
+          <label htmlFor="uf" className="block text-sm font-medium text-gray-700 mb-1">Estado</label>
           <input
             required
             type="text"
-            id="state"
-            name="state"
+            id="uf"
+            name="uf"
+            value={userData.uf}
+            onChange={(e) => setUserData({...userData, uf: e.target.value})}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
           />
         </div>
         
         <div className="col-span-2 mb-4">
-          <label htmlFor="bio" className="block text-sm font-medium text-gray-700 mb-1">Descrição</label>
+          <label htmlFor="descricao" className="block text-sm font-medium text-gray-700 mb-1">Descrição</label>
           <textarea
-            id="bio"
-            name="bio"
+            id="descricao"
+            name="descricao"
             rows={3}
             placeholder='Fale um pouco sobre os serviços que oferece'
+            value={userData.descricao}
+            onChange={(e) => setUserData({...userData, descricao: e.target.value})}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
           ></textarea>
         </div>
