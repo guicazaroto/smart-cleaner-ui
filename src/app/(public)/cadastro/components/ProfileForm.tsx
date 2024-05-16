@@ -3,6 +3,8 @@ import { formatCPF } from "@/helpers/formatCpf";
 import { formatPhoneNumber } from "@/helpers/formatPhone";
 import Swal from "sweetalert2";
 import { BASE_URL } from "@/helpers/constants";
+import { formatCEP } from "@/helpers/formatCEP";
+import { ufs } from "@/helpers/ufs";
 
 export default function ProfileForm ({ setStep, userData, setUserData }: any) {
   const [photo, setPhoto] = useState<string>('');
@@ -33,6 +35,12 @@ export default function ProfileForm ({ setStep, userData, setUserData }: any) {
     setUserData({...userData, cpf: formattedValue })
   };
 
+  const handleCepInputChange = (event: any) => {
+    const inputValue = event.target.value;
+    const formattedValue = formatCEP(inputValue);
+    setUserData({...userData, cep: formattedValue })
+  };
+  
   async function createUser  (e: any) {
     e.preventDefault()
 
@@ -68,7 +76,7 @@ export default function ProfileForm ({ setStep, userData, setUserData }: any) {
 
   return (
     <form onSubmit={createUser}>
-      {/* USER AVATAR */}
+      {/* TODO: USER AVATAR */}
       {/* <div className="mb-4 flex justify-center items-center">
         <div 
           onClick={() => document.getElementById('photo')?.click()}
@@ -156,7 +164,41 @@ export default function ProfileForm ({ setStep, userData, setUserData }: any) {
             id="cep"
             name="cep"
             value={userData.cep}
-            onChange={(e) => setUserData({...userData, cep: e.target.value})}
+            onChange={handleCepInputChange}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
+          />
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="uf" className="block text-sm font-medium text-gray-700 mb-1">
+            Estado
+          </label>
+          <select
+            required
+            id="uf"
+            name="uf"
+            value={userData.uf}
+            onChange={(e) => setUserData({...userData, uf: e.target.value})}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          >
+            <option value="" disabled>Selecione um estado</option>
+            {ufs.map((uf) => (
+              <option key={uf.value} value={uf.value}>
+                {uf.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="cidade" className="block text-sm font-medium text-gray-700 mb-1">Cidade</label>
+          <input
+            required
+            type="text"
+            id="cidade"
+            name="cidade"
+            value={userData.cidade}
+            onChange={(e) => setUserData({...userData, cidade: e.target.value})}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
           />
         </div>
@@ -183,31 +225,6 @@ export default function ProfileForm ({ setStep, userData, setUserData }: any) {
             name="number"
             value={userData.numero}
             onChange={(e) => setUserData({...userData, numero: e.target.value})}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
-          />
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="cidade" className="block text-sm font-medium text-gray-700 mb-1">Cidade</label>
-          <input
-            required
-            type="text"
-            id="cidade"
-            name="cidade"
-            value={userData.cidade}
-            onChange={(e) => setUserData({...userData, cidade: e.target.value})}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="uf" className="block text-sm font-medium text-gray-700 mb-1">Estado</label>
-          <input
-            required
-            type="text"
-            id="uf"
-            name="uf"
-            value={userData.uf}
-            onChange={(e) => setUserData({...userData, uf: e.target.value})}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
           />
         </div>
