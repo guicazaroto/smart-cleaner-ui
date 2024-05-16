@@ -1,12 +1,12 @@
-'use client'
 import { ChangeEvent, useState } from "react";
-import { SubmitButton } from "./SubmitButton";
-import { createUser } from '../actions/create-user';
 import { formatCPF } from "@/helpers/formatCpf";
 import { formatPhoneNumber } from "@/helpers/formatPhone";
+import Swal from "sweetalert2";
+import { BASE_URL } from "@/helpers/constants";
 
 export default function ProfileForm ({ setStep, userData, setUserData }: any) {
   const [photo, setPhoto] = useState<string>('');
+  const [ pending, setPending ] = useState<boolean>(false);
 
   const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -33,11 +33,41 @@ export default function ProfileForm ({ setStep, userData, setUserData }: any) {
     setUserData({...userData, cpf: formattedValue })
   };
 
+  async function createUser  (e: any) {
+    e.preventDefault()
 
+    setPending(true)
+    
+    try {
+     const res = await fetch(`${BASE_URL}/cleaner`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      })
+
+      await res.json()
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Usuário cadastrado',
+        text: 'Usuário cadastrado com sucesso.'
+      })
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro ao cadastrar',
+        text: 'Ocorreu um erro ao tentar cadastrar o usuário.'
+      })
+    } finally {
+      setPending(false)
+    }
+  }
 
 
   return (
-    <form action={createUser}>
+    <form onSubmit={createUser}>
       {/* USER AVATAR */}
       {/* <div className="mb-4 flex justify-center items-center">
         <div 
@@ -197,14 +227,15 @@ export default function ProfileForm ({ setStep, userData, setUserData }: any) {
       </div>
       
       <div>
-        <SubmitButton />
-        <button 
-          type="submit" 
-          className="bg-gray-400 text-white rounded py-2 w-full mt-3"
-          onClick={() => setStep(1)}
-        >
-          Anterior
-        </button>
+      <button disabled={pending} type="submit" className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+        {pending ? 'Carregando...' : 'Cadastrar'}
+      </button>
+      <button 
+        className="bg-gray-400 text-white rounded py-2 w-full mt-3"
+        onClick={() => setStep(1)}
+      >
+        Anterior
+      </button>
       </div>
     </form>
   )

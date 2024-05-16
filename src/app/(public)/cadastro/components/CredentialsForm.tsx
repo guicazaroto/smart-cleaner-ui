@@ -4,13 +4,8 @@ import Swal from 'sweetalert2'
 export default function CredentialsForm ({ setStep, userData, setUserData }: any) {
   function submitForm (e: FormEvent) {
     e.preventDefault()
-
-    const formData = new FormData(e.target as HTMLFormElement)
-
-    const password = formData.get('password')
-    const passwordConfirmation = formData.get('passwordConfirmation')
-
-    if (password !== passwordConfirmation) {
+    
+    if (userData.password !== userData.passwordConfirmation) {
       Swal.fire({ text: 'As senhas não conferem', icon: 'error' })
       return
     }
