@@ -1,9 +1,11 @@
 'use client'
 import { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="bg-white shadow-md">
@@ -36,9 +38,15 @@ const Header = () => {
           </button>
           <nav className={`${isMenuOpen ? 'block' : 'hidden'} lg:block`}>
             <ul className={`flex flex-col lg:flex-row lg:items-center lg:space-x-8 ${isMenuOpen ? 'absolute top-16 left-0 w-full bg-white p-4 shadow-lg' : 'hidden'} lg:static lg:shadow-none lg:bg-transparent lg:p-0 lg:flex`}>
-              <li className="mt-2 lg:mt-0"><a href="/">Início</a></li>
-              <li className="mt-2 lg:mt-0"><a href="/contratar">Contratar</a></li>
-              <li className="mt-2 lg:mt-0"><a href="/cadastro">Trabalhe no App</a></li>
+              <li className={`mt-2 lg:mt-0 ${pathname === '/' ? 'text-blue-500' : ''}`}>
+                <a href="/">Início</a>
+              </li>
+              <li className={`mt-2 lg:mt-0 ${pathname === '/contratar' ? 'text-blue-500' : ''}`}>
+                <a href="/contratar">Contratar</a>
+              </li>
+              <li className={`mt-2 lg:mt-0 ${pathname === '/cadastro' ? 'text-blue-500' : ''}`}>
+                <a href="/cadastro">Trabalhe no App</a>
+              </li>
               {/* TODO: login de usuário */}
               {/* <li className="mt-2 lg:mt-0">
                 <a
