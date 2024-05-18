@@ -8,7 +8,7 @@ const MaidCard = ({ maid }: any) => {
   const { name, city } = maid;
 
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg">
+    <div className="max-w-sm rounded overflow-hidden shadow-lg justify-self-center w-96 md:w-auto md:justify-self-auto">
       <Image 
         className="w-full" 
         src={'https://picsum.photos/200/150'} 
