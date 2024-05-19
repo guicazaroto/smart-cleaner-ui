@@ -1,5 +1,7 @@
+import { BASE_URL } from "@/helpers/constants";
+
 export async function getUsers() {
-  const response = await fetch('http://localhost:3001/users', {
+  const response = await fetch(`${BASE_URL}/cleaner`, {
     next: {
       tags: ['get-users']
     }
