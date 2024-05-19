@@ -76,8 +76,8 @@ export default function ProfileForm ({ setStep, userData, setUserData }: any) {
 
   return (
     <form onSubmit={createUser}>
-      {/* TODO: USER AVATAR */}
-      {/* <div className="mb-4 flex justify-center items-center">
+      TODO: USER AVATAR
+      <div className="mb-4 flex justify-center items-center">
         <div 
           onClick={() => document.getElementById('photo')?.click()}
           className="w-32 h-32 bg-gray-200 rounded-full overflow-hidden mb-2 cursor-pointer"
@@ -101,8 +101,8 @@ export default function ProfileForm ({ setStep, userData, setUserData }: any) {
           onChange={handlePhotoChange}
           className="mt-1 block w-full hidden"
         />
-      </div> */}
-      {/* END USER AVATAR */}
+      </div>
+      END USER AVATAR
 
       <div className="grid grid-cols-1">
         <div className="mb-4">
