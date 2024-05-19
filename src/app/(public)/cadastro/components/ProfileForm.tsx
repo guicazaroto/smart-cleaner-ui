@@ -1,15 +1,34 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { formatCPF } from "@/helpers/formatCpf";
 import { formatPhoneNumber } from "@/helpers/formatPhone";
 import Swal from "sweetalert2";
 import { BASE_URL } from "@/helpers/constants";
 import { formatCEP } from "@/helpers/formatCEP";
 import { ufs } from "@/helpers/ufs";
+import { User, City } from "../helpers/types";
 
-export default function ProfileForm ({ setStep, userData, setUserData }: any) {
-  const [photo, setPhoto] = useState<string>('');
+type ProfileFormProps = {
+  setStep: Dispatch<SetStateAction<number>>,
+  userData: User,
+  setUserData: Dispatch<SetStateAction<User>>,
+  photo: string,
+  setPhoto: Dispatch<SetStateAction<string>>,
+  cities: City[],
+  setCities: Dispatch<SetStateAction<City[]>>,
+}
+
+export default function ProfileForm (
+  { 
+    setStep, 
+    userData, 
+    setUserData, 
+    photo, 
+    setPhoto, 
+    cities, 
+    setCities,
+  }: ProfileFormProps
+) {
   const [ pending, setPending ] = useState<boolean>(false);
-  const [cities, setCities] = useState<any[]>([]);
 
   const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

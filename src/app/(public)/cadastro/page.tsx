@@ -4,27 +4,24 @@ import React from 'react';
 import ProfileForm from './components/ProfileForm';
 import CredentialsForm from './components/CredentialsForm';
 import Steppers from './components/Steppers';
+import { userInitialState } from './helpers/userInitialState';
+import { City } from './helpers/types';
 
 const RegistrationPage: React.FC = () => {
+  const [photo, setPhoto] = React.useState<string>('');
+  const [cities, setCities] = React.useState<City[]>([]);
   const [step, setStep] = React.useState(1);
-  const [userData, setUserData] = React.useState({
-    name: '',
-    email: '',
-    password: '',
-    passwordConfirmation: '',
-    active: true,
-    telefone: '',
-    cpf: '',
-    data_nascimento: '',
-    cep: '',
-    logradouro: '',
-    numero: '',
-    cidade: '',
-    uf: '',
-    descricao: ''
-  })
+  const [userData, setUserData] = React.useState(userInitialState)
 
-  const props = {  setStep, userData, setUserData }
+  const props = {  
+    setStep,
+    userData,
+    setUserData,
+    photo,
+    setPhoto,
+    cities,
+    setCities 
+  }
 
   return (
     <>
