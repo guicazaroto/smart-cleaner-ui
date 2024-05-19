@@ -9,6 +9,7 @@ import { ufs } from "@/helpers/ufs";
 export default function ProfileForm ({ setStep, userData, setUserData }: any) {
   const [photo, setPhoto] = useState<string>('');
   const [ pending, setPending ] = useState<boolean>(false);
+  const [cities, setCities] = useState<any[]>([]);
 
   const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -40,6 +41,17 @@ export default function ProfileForm ({ setStep, userData, setUserData }: any) {
     const formattedValue = formatCEP(inputValue);
     setUserData({...userData, cep: formattedValue })
   };
+
+  const getCities = async (uf: string) => {
+    const res = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`);
+
+    const data = await res.json();
+
+    return data.map((city: any) => ({
+      value: city.nome,
+      label: city.nome
+    }));
+  }
   
   async function createUser  (e: any) {
     e.preventDefault()
@@ -176,7 +188,11 @@ export default function ProfileForm ({ setStep, userData, setUserData }: any) {
             id="uf"
             name="uf"
             value={userData.uf}
-            onChange={(e) => setUserData({...userData, uf: e.target.value})}
+            onChange={(e) => {
+              setCities([])
+              setUserData({...userData, uf: e.target.value})
+              getCities(e.target.value).then((data) => setCities(data))
+            }}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           >
             <option value="" disabled>Selecione um estado</option>
@@ -190,15 +206,22 @@ export default function ProfileForm ({ setStep, userData, setUserData }: any) {
 
         <div className="mb-4">
           <label htmlFor="cidade" className="block text-sm font-medium text-gray-700 mb-1">Cidade</label>
-          <input
+          <select
             required
-            type="text"
             id="cidade"
             name="cidade"
+            disabled={!userData.uf || !cities.length}
             value={userData.cidade}
             onChange={(e) => setUserData({...userData, cidade: e.target.value})}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
-          />
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          >
+            <option value="" disabled>Selecione uma cidade</option>
+            {cities.map((city:any) => (
+              <option key={city.value} value={city.value}>
+                {city.label}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="mb-4">
