@@ -76,7 +76,6 @@ export default function ProfileForm ({ setStep, userData, setUserData }: any) {
 
   return (
     <form onSubmit={createUser}>
-      TODO: USER AVATAR
       <div className="mb-4 flex justify-center items-center">
         <div 
           onClick={() => document.getElementById('photo')?.click()}
@@ -102,7 +101,6 @@ export default function ProfileForm ({ setStep, userData, setUserData }: any) {
           className="mt-1 block w-full hidden"
         />
       </div>
-      END USER AVATAR
 
       <div className="grid grid-cols-1">
         <div className="mb-4">
