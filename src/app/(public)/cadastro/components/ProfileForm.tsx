@@ -71,43 +71,47 @@ export default function ProfileForm (
       label: city.nome
     }));
   }
-  
-  async function createUser  (e: any) {
-    e.preventDefault()
 
-    setPending(true)
+  async function createUser(e: any) {
+    e.preventDefault();
     
     try {
-     const res = await fetch(`${BASE_URL}/cleaner`, {
+      setPending(true);
+      
+      const res = await fetch(`${BASE_URL}/cleaner`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userData)
-      })
-
-      await res.json()
-
+        body: JSON.stringify(userData),
+      });
+  
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+  
+      await res.json();
+  
       Swal.fire({
         icon: 'success',
         title: 'Usuário cadastrado',
-        text: 'Usuário cadastrado com sucesso.'
-      })
+        text: 'Usuário cadastrado com sucesso.',
+      });
     } catch (error) {
       Swal.fire({
         icon: 'error',
         title: 'Erro ao cadastrar',
-        text: 'Ocorreu um erro ao tentar cadastrar o usuário.'
-      })
+        text: 'Ocorreu um erro ao tentar cadastrar o usuário.',
+      });
     } finally {
-      setPending(false)
+      setPending(false);
     }
   }
-
+  
 
   return (
     <form onSubmit={createUser}>
-      <div className="mb-4 flex justify-center items-center">
+      <div className="mb-4 flex justify-center items-center flex-col">
         <div 
           onClick={() => document.getElementById('photo')?.click()}
           className="w-32 h-32 bg-gray-200 rounded-full overflow-hidden mb-2 cursor-pointer"
@@ -131,6 +135,7 @@ export default function ProfileForm (
           onChange={handlePhotoChange}
           className="mt-1 block w-full hidden"
         />
+        <p className="text-red-500 font-bold">Imagem obrigatória</p>
       </div>
 
       <div className="grid grid-cols-1">
@@ -284,7 +289,11 @@ export default function ProfileForm (
       </div>
       
       <div>
-      <button disabled={pending} type="submit" className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+      <button 
+        disabled={pending || !photo} 
+        type="submit" 
+        className={`w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600`}
+      >
         {pending ? 'Carregando...' : 'Cadastrar'}
       </button>
       <button 
