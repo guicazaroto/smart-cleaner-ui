@@ -49,8 +49,8 @@ export default function ProfileForm (
     try {
       setPending(true);
       
-      const user = await handleCreateUser(userData) as any;
-      await handleUpload(photo, user.id);
+      const data = await handleCreateUser(userData) as any;
+      await handleUpload(photo, data.id);
 
       Swal.fire({
         icon: 'success',
@@ -95,7 +95,7 @@ export default function ProfileForm (
           onChange={handlePhotoChange}
           className="mt-1 block w-full hidden"
         />
-        {photo && (
+        {!photo && (
           <p className="text-red-500 font-bold">Imagem obrigatória</p>
         )}
       </div>

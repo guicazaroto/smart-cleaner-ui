@@ -38,9 +38,11 @@ export const handleCreateUser = async (userData: any) => {
     body: JSON.stringify(userData),
   });
 
+
   if (!res.ok) {
     throw new Error(`HTTP error! status: ${res.status}`);
   }
 
-  await res.json();
+  const user = await res.json();
+  return user.data;
 }

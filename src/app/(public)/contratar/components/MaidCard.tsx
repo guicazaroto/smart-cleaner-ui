@@ -17,7 +17,7 @@ const MaidCard = ({ maid }: any) => {
         height={150}
       />
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{maid.name}</div>
+        <div className="font-bold text-xl mb-2">{name}</div>
         <p className="text-gray-700 text-base">
           {cidade} - {uf}
         </p>
