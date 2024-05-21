@@ -26,7 +26,7 @@ export const handleUpload = async (photo: any, userId: string) => {
     throw new Error('Falha ao fazer upload');
   }
 
-  await response.json();
+  return response.json();
 };
 
 export const handleCreateUser = async (userData: any) => {
