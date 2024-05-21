@@ -1,32 +1,14 @@
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { formatCPF } from "@/helpers/formatCpf";
 import { formatPhoneNumber } from "@/helpers/formatPhone";
 import Swal from "sweetalert2";
-import { BASE_URL } from "@/helpers/constants";
 import { formatCEP } from "@/helpers/formatCEP";
 import { ufs } from "@/helpers/ufs";
-import { User, City } from "../helpers/types";
-
-type ProfileFormProps = {
-  setStep: Dispatch<SetStateAction<number>>,
-  userData: User,
-  setUserData: Dispatch<SetStateAction<User>>,
-  photo: string,
-  setPhoto: Dispatch<SetStateAction<string>>,
-  cities: City[],
-  setCities: Dispatch<SetStateAction<City[]>>,
-}
+import {  ProfileFormProps } from "../helpers/types";
+import { getCities, handleCreateUser, handleUpload } from "../actions";
 
 export default function ProfileForm (
-  { 
-    setStep, 
-    userData, 
-    setUserData, 
-    photo, 
-    setPhoto, 
-    cities, 
-    setCities,
-  }: ProfileFormProps
+  {  setStep,  userData, setUserData, photo, setPhoto, cities, setCities }: ProfileFormProps
 ) {
   const [ pending, setPending ] = useState<boolean>(false);
 
@@ -61,37 +43,15 @@ export default function ProfileForm (
     setUserData({...userData, cep: formattedValue })
   };
 
-  const getCities = async (uf: string) => {
-    const res = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`);
-
-    const data = await res.json();
-
-    return data.map((city: any) => ({
-      value: city.nome,
-      label: city.nome
-    }));
-  }
-
-  async function createUser(e: any) {
+  async function handleSubmit(e: any) {
     e.preventDefault();
     
     try {
       setPending(true);
       
-      const res = await fetch(`${BASE_URL}/cleaner`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
-  
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-  
-      await res.json();
-  
+      const user = await handleCreateUser(userData) as any;
+      await handleUpload(photo, user.id);
+
       Swal.fire({
         icon: 'success',
         title: 'Usuário cadastrado',
@@ -110,7 +70,7 @@ export default function ProfileForm (
   
 
   return (
-    <form onSubmit={createUser}>
+    <form onSubmit={handleSubmit}>
       <div className="mb-4 flex justify-center items-center flex-col">
         <div 
           onClick={() => document.getElementById('photo')?.click()}
@@ -135,7 +95,9 @@ export default function ProfileForm (
           onChange={handlePhotoChange}
           className="mt-1 block w-full hidden"
         />
-        <p className="text-red-500 font-bold">Imagem obrigatória</p>
+        {photo && (
+          <p className="text-red-500 font-bold">Imagem obrigatória</p>
+        )}
       </div>
 
       <div className="grid grid-cols-1">

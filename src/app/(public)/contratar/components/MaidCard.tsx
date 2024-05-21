@@ -5,7 +5,7 @@ import Link from 'next/link';
 import React from 'react';
 
 const MaidCard = ({ maid }: any) => {
-  const { Cidade, Uf, Descricao, UserInfos } = maid;
+  const { name, cidade, uf, descricao } = maid;
 
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg justify-self-center w-96 md:w-auto md:justify-self-auto">
@@ -17,16 +17,16 @@ const MaidCard = ({ maid }: any) => {
         height={150}
       />
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">{UserInfos.Name}</div>
+        <div className="font-bold text-xl mb-2">{maid.name}</div>
         <p className="text-gray-700 text-base">
-          {Cidade} - {Uf}
+          {cidade} - {uf}
         </p>
         <p className='mt-3'>
-          {Descricao.substring(0, 100)}...
+          {descricao.substring(0, 100)}...
         </p>
       </div>
       <div className="px-6 py-4">
-          <Link href={`/contratar/${maid.ID}`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          <Link href={`/contratar/${maid.id}`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Contratar
           </Link>
       </div>
