@@ -6,7 +6,7 @@ import { User } from "../../cadastro/helpers/types";
 
 export async function generateStaticParams() {
   const users = await getUsers();
-  const usersIds = users.data.map((user: User) => ({ userId: user.id }));
+  const usersIds = users.data.map((user: User) => ({ userId: String(user.id) }));
 
   return usersIds;
 }

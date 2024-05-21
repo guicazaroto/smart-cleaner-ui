@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 export type City = { name: string}
 
 export interface User {
-  id?: string;
+  id?: number;
   name: string;
   email: string;
   password: string;
