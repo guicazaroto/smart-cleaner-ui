@@ -6,11 +6,13 @@ import { formatCEP } from "@/helpers/formatCEP";
 import { ufs } from "@/helpers/ufs";
 import {  ProfileFormProps } from "../helpers/types";
 import { getCities, handleCreateUser, handleUpload } from "../actions";
+import { useRouter } from 'next/navigation';
 
 export default function ProfileForm (
   {  setStep,  userData, setUserData, photo, setPhoto, cities, setCities }: ProfileFormProps
 ) {
   const [ pending, setPending ] = useState<boolean>(false);
+  const { push } = useRouter();
 
   const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -57,6 +59,8 @@ export default function ProfileForm (
         title: 'Usuário cadastrado',
         text: 'Usuário cadastrado com sucesso.',
       });
+      push('/contratar')
+      
     } catch (error) {
       Swal.fire({
         icon: 'error',
