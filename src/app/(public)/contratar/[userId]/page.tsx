@@ -13,7 +13,8 @@ export async function generateStaticParams() {
 
 export default async function Perfil ({params}: { params: { userId: string }} ) {
   const user = await getUserById(params.userId)
-  const {data} = user
+  const {data } = user
+
 
   return (
     <div className="py-5 min-h-screen bg-gray-100 flex justify-around">
@@ -21,13 +22,13 @@ export default async function Perfil ({params}: { params: { userId: string }} ) 
         <h2 className="text-2xl font-bold mb-4 text-center">Perfil do Usuário</h2>
         <div className="flex justify-center items-center mb-4">
           <div className="w-32 h-32 bg-gray-200 rounded-full overflow-hidden">
-            {/* <Image 
+            <Image 
               width={32} 
               height={32} 
-              src={user.photo} 
+              src={user.imagem_url || 'https://picsum.photos/200/150'} 
               className="w-full h-full object-cover" 
               alt="Foto do usuário"
-            /> */}
+            />
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">

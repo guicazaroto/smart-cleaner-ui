@@ -5,13 +5,15 @@ import Link from 'next/link';
 import React from 'react';
 
 const MaidCard = ({ maid }: any) => {
-  const { name, cidade, uf, descricao } = maid;
+  const { name, cidade, uf, descricao, imagem_url } = maid;
+
+  console.log(maid);
 
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg justify-self-center w-96 md:w-auto md:justify-self-auto">
       <Image 
         className="w-full" 
-        src={'https://picsum.photos/200/150'} 
+        src={imagem_url || 'https://picsum.photos/200/150'} 
         alt="Foto da Diarista"
         width={200}
         height={150}
