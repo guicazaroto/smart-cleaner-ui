@@ -1,5 +1,6 @@
 import { compressImage } from "@/helpers/compressor";
 import { BASE_URL } from "@/helpers/constants";
+import { revalidateTag } from 'next/cache'
 
 export const getCities = async (uf: string) => {
   const res = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`);
@@ -29,6 +30,7 @@ export const handleUpload = async (photo: any, userId: string) => {
     throw new Error('Falha ao fazer upload');
   }
 
+  revalidateTag('get-users');
   return response.json();
 };
 

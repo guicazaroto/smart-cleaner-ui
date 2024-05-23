@@ -20,11 +20,11 @@ const MaidCard = ({ maid }: any) => {
         <p className="text-gray-700 text-base">
           {cidade} - {uf}
         </p>
-        <p className='mt-3'>
+        <p className='mt-3' style={{minHeight: '100px' }}>
           {descricao.substring(0, 100)}...
         </p>
       </div>
-      <div className="px-6 py-4">
+      <div className="px-6 pb-4">
           <Link href={`/contratar/${maid.id}`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Contratar
           </Link>
