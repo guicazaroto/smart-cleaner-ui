@@ -5,13 +5,13 @@ import ProfileForm from './components/ProfileForm';
 import CredentialsForm from './components/CredentialsForm';
 import Steppers from './components/Steppers';
 import { userInitialState } from './helpers/userInitialState';
-import { City } from './helpers/types';
+import { City, User } from './helpers/types';
 
 const RegistrationPage: React.FC = () => {
   const [photo, setPhoto] = React.useState<string>('');
   const [cities, setCities] = React.useState<City[]>([]);
   const [step, setStep] = React.useState(1);
-  const [userData, setUserData] = React.useState(userInitialState)
+  const [userData, setUserData] = React.useState(userInitialState as User)
 
   const props = {  
     setStep,
@@ -20,7 +20,7 @@ const RegistrationPage: React.FC = () => {
     photo,
     setPhoto,
     cities,
-    setCities 
+    setCities
   }
 
   return (
@@ -35,8 +35,7 @@ const RegistrationPage: React.FC = () => {
       <div className="bg-white p-8 rounded shadow-md w-full max-w-lg">
         <Steppers step={step} setStep={setStep} />
 
-        {step === 1 &&  <CredentialsForm {...props} /> }
-        {step === 2 &&  <ProfileForm {...props} /> }
+        {step === 1 ? <CredentialsForm {...props} /> : <ProfileForm {...props} /> }
       </div>
     </div>
     </>

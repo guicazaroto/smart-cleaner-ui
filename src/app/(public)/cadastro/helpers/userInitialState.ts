@@ -13,5 +13,6 @@ export const userInitialState = {
   numero: '',
   cidade: '',
   uf: '',
-  descricao: ''
+  descricao: '',
+  fileUpload: null
 }

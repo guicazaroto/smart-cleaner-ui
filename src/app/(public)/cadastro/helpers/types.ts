@@ -18,6 +18,7 @@ export interface User {
   cidade: string;
   uf: string;
   descricao: string;
+  fileUpload: File | null;
 }
 
 export type ProfileFormProps = {
@@ -27,5 +28,5 @@ export type ProfileFormProps = {
   photo: string,
   setPhoto: Dispatch<SetStateAction<string>>,
   cities: City[],
-  setCities: Dispatch<SetStateAction<City[]>>,
+  setCities: Dispatch<SetStateAction<City[]>>
 }

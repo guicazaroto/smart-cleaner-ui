@@ -7,17 +7,14 @@ import React from 'react';
 const MaidCard = ({ maid }: any) => {
   const { name, cidade, uf, descricao, imagem_url } = maid;
 
-  console.log(maid);
-
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg justify-self-center w-96 md:w-auto md:justify-self-auto">
-      <Image 
-        className="w-full" 
-        src={imagem_url || 'https://picsum.photos/200/150'} 
-        alt="Foto da Diarista"
-        width={200}
-        height={150}
-      />
+      <div 
+        className="relative w-full h-60 bg-cover bg-center" 
+        style={{ backgroundImage: `url(${imagem_url})` }}
+      >
+        <div className="absolute inset-0 bg-black opacity-25"></div>
+      </div>
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{name}</div>
         <p className="text-gray-700 text-base">

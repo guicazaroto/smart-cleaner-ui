@@ -9,7 +9,15 @@ import { getCities, handleCreateUser, handleUpload } from "../actions";
 import { useRouter } from 'next/navigation';
 
 export default function ProfileForm (
-  {  setStep,  userData, setUserData, photo, setPhoto, cities, setCities }: ProfileFormProps
+  {  
+    setStep,
+    userData,
+    setUserData,
+    photo,
+    setPhoto,
+    cities,
+    setCities
+  }: ProfileFormProps
 ) {
   const [ pending, setPending ] = useState<boolean>(false);
   const { push } = useRouter();
@@ -21,6 +29,7 @@ export default function ProfileForm (
       reader.onloadend = () => {
         if (typeof reader.result === 'string') {
           setPhoto(reader.result);
+          setUserData({...userData, fileUpload: file });
         }
       };
       reader.readAsDataURL(file);
@@ -52,7 +61,7 @@ export default function ProfileForm (
       setPending(true);
       
       const data = await handleCreateUser(userData) as any;
-      await handleUpload(photo, data.id);
+      await handleUpload(userData.fileUpload, data.id);
 
       Swal.fire({
         icon: 'success',
