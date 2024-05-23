@@ -1,19 +1,22 @@
-import Compressor from 'compressorjs';
+import imageCompression from 'browser-image-compression';
 
-export const compressImage = (file: File) => {
-  return new Promise((resolve, reject) => {
-    new Compressor(file, {
-      quality: 0.6,
-      success(result) {
-        const compressedFile = new File([result], file.name, {
-          type: result.type,
-          lastModified: Date.now(),
-        });
-        resolve(compressedFile);
-      },
-      error(err) {
-        reject(err);
-      },
+export const compressImage = async (file: File) => {
+  const options = {
+    maxSizeMB: 1,
+    maxWidthOrHeight: 1920,
+    useWebWorker: true,
+  };
+
+  try {
+    const compressedFile = await imageCompression(file, options);
+    const fileResult = new File([compressedFile], file.name, {
+      type: file.type,
+      lastModified: Date.now(),
     });
-  });
+
+    return fileResult
+  } catch (error) {
+    console.error('Error while compressing the image:', error);
+    throw error;
+  }
 };

@@ -100,7 +100,6 @@ export default function ProfileForm (
         </div>
 
         <input
-          required
           type="file"
           id="photo"
           name="photo"
