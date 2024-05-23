@@ -15,7 +15,7 @@ export default async function MaidsPage () {
     <SearchBanner />
     <div className="min-h-screen container mx-auto py-5">
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {maids.data.reverse().map((maid: any) => (
+        {maids?.data?.reverse().map((maid: any) => (
           <MaidCard key={maid.id} maid={maid} />
         ))}
       </div>
