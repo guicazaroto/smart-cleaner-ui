@@ -1,3 +1,4 @@
+import { compressImage } from "@/helpers/compressor";
 import { BASE_URL } from "@/helpers/constants";
 
 export const getCities = async (uf: string) => {
@@ -15,7 +16,9 @@ export const handleUpload = async (photo: any, userId: string) => {
   if (!photo) return;
 
   const formData = new FormData();
-  formData.append('file', photo);
+  const compressedFile = await compressImage(photo) as File;
+
+  formData.append('file', compressedFile);
 
   const response = await fetch(`${BASE_URL}/cleaner/${userId}/img`, {
     method: 'POST',
