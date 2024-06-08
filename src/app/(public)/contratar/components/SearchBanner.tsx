@@ -37,8 +37,8 @@ const SearchBanner = () => {
           className="w-full py-3 px-4 rounded-l-md bg-white text-gray-800 focus:outline-none"
         />
           <datalist id="cities-list" >
-            {searchResult.length && searchResult?.map((city: any) => (
-              <option value={city.item} key={city.item}>{city.item}</option>
+            {searchResult.length && searchResult?.map((city: any, index: number) => (
+              <option value={city.item} key={city.item + index}>{city.item}</option>
             ))}
           </datalist>
 
