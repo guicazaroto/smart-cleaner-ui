@@ -47,15 +47,14 @@ const Header = () => {
               <li className={`mt-2 lg:mt-0 ${pathname === '/cadastro' ? 'text-blue-500' : ''}`}>
                 <a href="/cadastro">Trabalhe no App</a>
               </li>
-              {/* TODO: login de usuário */}
-              {/* <li className="mt-2 lg:mt-0">
+              <li className="mt-2 lg:mt-0">
                 <a
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
                   href="/entrar"
                 >
                   Entrar
                 </a>
-              </li> */}
+              </li>
             </ul>
           </nav>
         </div>

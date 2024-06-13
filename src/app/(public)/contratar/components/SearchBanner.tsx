@@ -3,10 +3,12 @@
 
 import React from 'react';
 import searchCities  from '@/helpers/searchCities'
+import { useRouter } from 'next/navigation';
 
 const SearchBanner = () => {
   const [search, setSearch] = React.useState<string>('')
   const [searchResult, setSearchResult] = React.useState<any>([])
+  const router = useRouter()
 
   function handleAutocomplete(e: any) {
     const search = e.target.value
@@ -21,34 +23,36 @@ const SearchBanner = () => {
   }
 
   function handleSearch(e: any) {
-    console.log('searching for..:', search)
+    e.preventDefault()
+    router.push(`/contratar/search/${search}`)
   }
   
   return (
     <section className="bg-blue-500 py-20 text-white text-center">
     <div className="container mx-auto">
       <h1 className="text-4xl font-bold mb-4">Busque profissionais na sua localidade</h1>
-      <div className="max-w-md mx-auto flex">
-        <input
-          onInput={handleAutocomplete}
-          type="text"
-          list='cities-list'
-          placeholder="Buscar por cidade..."
-          className="w-full py-3 px-4 rounded-l-md bg-white text-gray-800 focus:outline-none"
-        />
-          <datalist id="cities-list" >
-            {searchResult.length && searchResult?.map((city: any, index: number) => (
-              <option value={city.item} key={city.item + index}>{city.item}</option>
-            ))}
-          </datalist>
+      <form onSubmit={handleSearch}>
+        <div className="max-w-md mx-auto flex">
+          <input
+            onInput={handleAutocomplete}
+            type="text"
+            list='cities-list'
+            placeholder="Buscar por cidade..."
+            className="w-full py-3 px-4 rounded-l-md bg-white text-gray-800 focus:outline-none"
+          />
+            <datalist id="cities-list" >
+              {searchResult.length && searchResult?.map((city: any, index: number) => (
+                <option value={city.item} key={city.item + index}>{city.item}</option>
+              ))}
+            </datalist>
 
-        <button
-          onClick={handleSearch}
-          className="bg-yellow-500 text-white font-bold py-3 px-6 rounded-r-md focus:outline-none"
-        >
-          Buscar
-        </button>
-      </div>
+          <button
+            className="bg-yellow-500 text-white font-bold py-3 px-6 rounded-r-md focus:outline-none"
+          >
+            Buscar
+          </button>
+        </div>
+      </form>
     </div>
   </section>
   );

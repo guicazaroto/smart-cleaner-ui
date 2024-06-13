@@ -1,14 +1,14 @@
 // pages/maids.js
 
 import React from 'react';
-import MaidCard from './components/MaidCard';
-import SearchBanner from './components/SearchBanner';
-import { getUsers } from './services/getUsers';
+import MaidCard from '../../components/MaidCard';
+import SearchBanner from '../../components/SearchBanner';
+import { getUsers } from '../../services/getUsers';
 
 
 
-export default async function MaidsPage () {
-  const maids = await getUsers()
+export default async function SearchPage ({ params: { keyword }}: any) {
+  const maids = await getUsers(keyword)
 
   return (
     <>

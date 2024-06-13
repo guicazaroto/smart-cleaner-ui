@@ -1,11 +1,18 @@
 'use client'
 
-import React from 'react';
+import React, { FormEvent } from 'react';
+import Cookies from 'js-cookie'
 
 const LoginPage = () => {
-  const handleLogin = () => {
+  const handleLogin = (e: FormEvent) => {
+    e.preventDefault();
+
+    const form = new FormData(e.target as HTMLFormElement);
+    const email = form.get('email') as string;
+    const password = form.get('password') as string;
+
     // Implement your login logic here
-    console.log('Logging in...');
+    console.log(email, password);
   };
 
   return (
