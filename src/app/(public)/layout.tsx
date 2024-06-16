@@ -24,7 +24,7 @@ export default function RootLayout({
         <main>{children}</main>
 
         <footer className="bg-gray-900 text-white text-center py-4">
-          &copy; {new Date().getFullYear()} Sua Marca. Todos os direitos reservados.
+          &copy; {new Date().getFullYear()} Todos os direitos reservados.
         </footer>
       </body>
     </html>

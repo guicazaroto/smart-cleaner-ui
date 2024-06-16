@@ -1,6 +1,5 @@
 import { getUserById } from "./services/get-user-profile"
 import { getUsers } from "../services/getUsers";
-import Calendar from "../components/Calendar";
 import { User } from "../../cadastro/helpers/types";
 
 export async function generateStaticParams() {
@@ -50,9 +49,6 @@ export default async function Perfil ({params}: { params: { userId: string }} ) 
             <p className="text-gray-700" id="bio">{data?.descricao}</p>
           </div> 
         </div>
-
-        {/* <Calendar /> */}
-
       </div>
     </div>
   )

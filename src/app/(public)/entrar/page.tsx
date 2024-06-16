@@ -1,7 +1,7 @@
 'use client'
 
 import React, { FormEvent } from 'react';
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
 
 const LoginPage = () => {
   const handleLogin = (e: FormEvent) => {
