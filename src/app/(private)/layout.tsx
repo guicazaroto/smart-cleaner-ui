@@ -14,12 +14,30 @@ export default function RootLayout({
   const router = useRouter();
 
   useEffect(() => {
-    fetch(`${BASE_URL}/me`).then((res) => {
-      if (res.status === 401) {
-        Cookies.remove("token");
+    async function getMe() {
+      const token = Cookies.get("token");
+      
+      if (!token) {
+        router.push("/entrar");
+        return;
+      }
+
+      const response = await fetch(`${BASE_URL}/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
         router.push("/entrar");
       }
-    });
+
+      const user = await response.json();
+      
+      sessionStorage.setItem("user", JSON.stringify(user));
+    }
+
+    getMe();
   }
   , [router]);
   
