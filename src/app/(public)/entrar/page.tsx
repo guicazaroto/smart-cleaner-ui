@@ -1,9 +1,12 @@
 'use client'
-
 import React, { FormEvent } from 'react';
-// import Cookies from 'js-cookie'
+import { useRouter } from 'next/navigation'
+import Swal from 'sweetalert2';
+import Cookies from 'js-cookie';
 
 const LoginPage = () => {
+  const router = useRouter();
+  
   const handleLogin = (e: FormEvent) => {
     e.preventDefault();
 
@@ -11,9 +14,28 @@ const LoginPage = () => {
     const email = form.get('email') as string;
     const password = form.get('password') as string;
 
-    // Implement your login logic here
-    console.log(email, password);
+    getCredentials(email, password); 
+
   };
+
+  async function getCredentials(email: string, password: string) {
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    })
+ 
+    if (response.ok) {
+      Cookies.set('token', await response.text());
+      return router.push('/profile')
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro!',
+        text: 'Ocorreu um erro ao tentar fazer o login.',
+      });
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center items-center">
@@ -25,6 +47,7 @@ const LoginPage = () => {
             <input
               type="email"
               id="email"
+              name="email"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
               required
             />
@@ -33,6 +56,7 @@ const LoginPage = () => {
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">Senha</label>
             <input
               type="password"
+              name="password"
               id="password"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
               required
