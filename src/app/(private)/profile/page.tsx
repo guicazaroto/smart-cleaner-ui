@@ -7,12 +7,15 @@ import { User } from "@/app/(public)/cadastro/helpers/types";
 import { formatPhoneNumber } from "@/helpers/formatPhone";
 import { formatCEP } from "@/helpers/formatCEP";
 import { getCities } from "@/app/(public)/cadastro/actions";
+import Cookies from 'js-cookie';
+import { BASE_URL } from "@/helpers/constants";
+import Swal from "sweetalert2";
 
 const ProfilePage = () => {
   const user = useContext<User>(UserContext);
   const [userData, setUserData] = useState(user);
   const [cities, setCities] = useState([]);
-
+  const token = Cookies.get('token');
   const { 
      email,
      name,
@@ -49,11 +52,38 @@ const ProfilePage = () => {
       handleCitiesInput({ target: { value: uf } })
     },[])
   
+  async function updateProfile(event: any) {
+    event.preventDefault();
+
+    try {
+      const res = await fetch(`${BASE_URL}/cleaner`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(userData)
+      })
   
+       const data = await res.json()
+       Swal.fire({
+        icon: 'success',
+        title: 'Perfil atualizado com sucesso!',
+      })
+       setUserData(data)
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Algo deu errado, tente novamente',
+      
+      })
+    }
+  }
 
   return (
     <div className="mx-auto max-w-2xl	my-8">
-      <form>
+      <form onSubmit={updateProfile}>
         <div className="grid grid-cols-1 gap-4">
         <h2 className="text-2xl font-bold mb-4 text-center">Meu Perfil</h2>
         <h3 className="text-xl font-bold mb-4 text-center">Bem Vindo(a) {name}</h3>
@@ -72,7 +102,8 @@ const ProfilePage = () => {
               type="email"
               id="email"
               name="email"
-              defaultValue={email}
+              value={email}
+              onChange={(e) => setUserData({...userData, email: e.target.value})}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
@@ -84,7 +115,8 @@ const ProfilePage = () => {
             type="text"
             id="name"
             name="name"
-            defaultValue={name}
+            value={name}
+            onChange={(e) => setUserData({...userData, name: e.target.value})}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
           />
         </div>
@@ -109,7 +141,8 @@ const ProfilePage = () => {
             type="date"
             id="data_nascimento"
             name="data_nascimento"
-            defaultValue={data_nascimento}
+            value={data_nascimento}
+            onChange={(e) => setUserData({...userData, data_nascimento: e.target.value})}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
           />
         </div>
@@ -154,8 +187,8 @@ const ProfilePage = () => {
             required
             id="cidade"
             name="cidade"
-            disabled={!userData.uf || !cities.length}
-            value={userData.cidade}
+            disabled={!uf || !cities.length}
+            value={cidade}
             onChange={(e) => setUserData({...userData, cidade: e.target.value})}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           >
@@ -175,7 +208,8 @@ const ProfilePage = () => {
             type="text"
             id="logradouro"
             name="logradouro"
-            defaultValue={logradouro}
+            value={logradouro}
+            onChange={(e) => setUserData({...userData, logradouro: e.target.value})}  
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
           />
         </div>
@@ -187,7 +221,8 @@ const ProfilePage = () => {
             type="text"
             id="number"
             name="number"
-            defaultValue={numero}
+            value={numero}
+            onChange={(e) => setUserData({...userData, numero: e.target.value})}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
           />
         </div>
@@ -197,7 +232,8 @@ const ProfilePage = () => {
           <textarea
             id="descricao"
             name="descricao"
-            defaultValue={descricao}
+            value={descricao}
+            onChange={(e) => setUserData({...userData, descricao: e.target.value})}
             rows={3}
             placeholder='Fale um pouco sobre os serviços que oferece'
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
@@ -205,6 +241,9 @@ const ProfilePage = () => {
         </div>
         </div>
         </div>
+        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          Salvar
+        </button>
       </form>
     </div>
   );
