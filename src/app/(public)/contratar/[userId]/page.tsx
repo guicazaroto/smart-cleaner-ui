@@ -1,6 +1,7 @@
 import { getUserById } from "./services/get-user-profile"
 import { getUsers } from "../services/getUsers";
 import { User } from "../../cadastro/helpers/types";
+import { ContactModal } from "./components/contact-modal";
 
 export async function generateStaticParams() {
   const users = await getUsers();
@@ -25,6 +26,7 @@ export default async function Perfil ({params}: { params: { userId: string }} ) 
             style={{ backgroundImage: `url(${data?.imagem_url})` }}>
           </div>
         </div>
+        <ContactModal />
         <div className="grid grid-cols-2 gap-4">
           <div className="mb-4">
             <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Nome</label>
@@ -49,7 +51,7 @@ export default async function Perfil ({params}: { params: { userId: string }} ) 
           <div className="col-span-2 mb-4">
             <label htmlFor="bio" className="block text-sm font-medium text-gray-700 mb-1">Descrição</label>
             <p className="text-gray-700" id="bio">{data?.descricao}</p>
-          </div> 
+          </div>          
         </div>
       </div>
     </div>
