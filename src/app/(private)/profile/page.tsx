@@ -16,19 +16,8 @@ const ProfilePage = () => {
   const [userData, setUserData] = useState(user);
   const [cities, setCities] = useState([]);
   const [photo, setPhoto] = useState(userData?.imagem_url || '');
-  const token = Cookies.get('token');
-  const { 
-     email,
-     name,
-     telefone,
-     data_nascimento,
-     cep,
-     logradouro,
-     numero,
-     cidade,
-     uf,
-     descricao 
-    } = userData;
+  const { email, name, telefone, data_nascimento, cep,
+      logradouro, numero, cidade, uf, descricao } = userData;
 
     const handlePhoneInputChange = (event: any) => {
       const inputValue = event.target.value;
