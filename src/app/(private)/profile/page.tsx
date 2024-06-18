@@ -1,18 +1,23 @@
 'use client'
 
 import { ufs } from "@/helpers/ufs";
-import {  useContext } from "react";
+import {  useContext, useEffect, useState } from "react";
 import { UserContext } from "../layout";
 import { User } from "@/app/(public)/cadastro/helpers/types";
+import { formatPhoneNumber } from "@/helpers/formatPhone";
+import { formatCEP } from "@/helpers/formatCEP";
+import { getCities } from "@/app/(public)/cadastro/actions";
 
 const ProfilePage = () => {
   const user = useContext<User>(UserContext);
+  const [userData, setUserData] = useState(user);
+  const [cities, setCities] = useState([]);
+
   const { 
      email,
      name,
      imagem_url,
      telefone,
-     cpf,
      data_nascimento,
      cep,
      logradouro,
@@ -20,8 +25,31 @@ const ProfilePage = () => {
      cidade,
      uf,
      descricao 
-    } = user;
+    } = userData;
 
+    const handlePhoneInputChange = (event: any) => {
+      const inputValue = event.target.value;
+      const formattedValue = formatPhoneNumber(inputValue);
+      setUserData({...userData, telefone: formattedValue })
+    };
+
+    const handleCepInputChange = (event: any) => {
+      const inputValue = event.target.value;
+      const formattedValue = formatCEP(inputValue);
+      setUserData({...userData, cep: formattedValue })
+    };
+
+    const handleCitiesInput = (e: any) => {
+      setCities([])
+      setUserData({...userData, uf: e.target.value})
+      getCities(e.target.value).then((data) => setCities(data))
+    }
+  
+    useEffect(() => {
+      handleCitiesInput({ target: { value: uf } })
+    },[])
+  
+  
 
   return (
     <div className="mx-auto max-w-2xl	my-8">
@@ -29,6 +57,14 @@ const ProfilePage = () => {
         <div className="grid grid-cols-1 gap-4">
         <h2 className="text-2xl font-bold mb-4 text-center">Meu Perfil</h2>
         <h3 className="text-xl font-bold mb-4 text-center">Bem Vindo(a) {name}</h3>
+        
+        <div className="flex justify-center items-center mb-4">
+          <div 
+            className="w-32 h-32 bg-gray-200 rounded-full overflow-hidden bg-cover bg-center" 
+            style={{ backgroundImage: `url(${imagem_url})` }}>
+          </div>
+        </div>
+
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
             <input
@@ -61,7 +97,8 @@ const ProfilePage = () => {
             type="tel"
             id="telefone"
             name="telefone"
-            defaultValue={telefone}
+            value={telefone}
+            onChange={handlePhoneInputChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
           />
         </div>
@@ -84,7 +121,8 @@ const ProfilePage = () => {
             type="text"
             id="cep"
             name="cep"
-            defaultValue={cep}
+            value={cep}
+            onChange={handleCepInputChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"              
           />
         </div>
@@ -98,36 +136,37 @@ const ProfilePage = () => {
             id="uf"
             name="uf"
             defaultValue={uf}
+            onChange={handleCitiesInput}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           >
             <option defaultValue="" disabled>Selecione um estado</option>
             {ufs.map((uf) => (
-              <option key={uf.value} defaultValue={uf.value}>
+              <option key={uf.value} value={uf.value}>
                 {uf.label}
               </option>
             ))}
           </select>
         </div>
 
-        {/* <div className="mb-4">
+        <div className="mb-4">
           <label htmlFor="cidade" className="block text-sm font-medium text-gray-700 mb-1">Cidade</label>
           <select
             required
             id="cidade"
             name="cidade"
             disabled={!userData.uf || !cities.length}
-            defaultValue={userData.cidade}
+            value={userData.cidade}
             onChange={(e) => setUserData({...userData, cidade: e.target.value})}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           >
-            <option defaultValue="" disabled>Selecione uma cidade</option>
+            <option value="" disabled>Selecione uma cidade</option>
             {cities.map((city:any) => (
-              <option key={city.value} defaultValue={city.value}>
+              <option key={city.value} value={city.value}>
                 {city.label}
               </option>
             ))}
           </select>
-        </div> */}
+        </div>
 
         <div className="mb-4">
           <label htmlFor="logradouro" className="block text-sm font-medium text-gray-700 mb-1">Rua</label>

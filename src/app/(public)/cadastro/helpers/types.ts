@@ -19,6 +19,7 @@ export interface User {
   uf: string;
   descricao: string;
   fileUpload: File | null;
+  imagem_url?: string;
 }
 
 export type ProfileFormProps = {

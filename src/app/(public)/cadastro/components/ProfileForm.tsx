@@ -21,7 +21,6 @@ export default function ProfileForm (
 ) {
   const [ pending, setPending ] = useState<boolean>(false);
   const { push } = useRouter();
-
   const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
