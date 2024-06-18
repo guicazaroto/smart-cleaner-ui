@@ -15,9 +15,7 @@ export const ContactModal = () => {
   };
 
   const handleSubmit = () => {
-    // Aqui você pode adicionar lógica para enviar a mensagem
     console.log('Enviando mensagem:', message);
-    // Fechar o modal após enviar a mensagem (opcional)
     toggleModal();
   };
 
@@ -35,9 +33,7 @@ export const ContactModal = () => {
       <div className="flex items-center justify-center">
         <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none bg-black bg-opacity-50">
           <div className="relative bg-white w-full max-w-lg mx-auto rounded-lg shadow-lg">
-            {/* Conteúdo do Modal */}
             <div className="flex flex-col items-start p-4">
-              {/* Cabeçalho do Modal */}
               <div className="flex items-center justify-between w-full mb-4">
                 <h3 className="text-lg font-semibold">Enviar Mensagem</h3>
                 <button
@@ -60,14 +56,12 @@ export const ContactModal = () => {
                   </svg>
                 </button>
               </div>
-              {/* Corpo do Modal */}
               <textarea
                 className="w-full h-32 p-2 border border-gray-300 rounded resize-none"
                 placeholder="Digite sua mensagem..."
                 value={message}
                 onChange={handleMessageChange}
               ></textarea>
-              {/* Rodapé do Modal */}
               <div className="flex justify-end w-full mt-4">
                 <button
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none"
