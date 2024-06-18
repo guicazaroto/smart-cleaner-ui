@@ -7,8 +7,6 @@ import { User } from "@/app/(public)/cadastro/helpers/types";
 import { formatPhoneNumber } from "@/helpers/formatPhone";
 import { formatCEP } from "@/helpers/formatCEP";
 import { getCities, handleUpdateUser, handleUpload } from "@/app/(public)/cadastro/actions";
-import Cookies from 'js-cookie';
-import { BASE_URL } from "@/helpers/constants";
 import Swal from "sweetalert2";
 
 const ProfilePage = () => {
