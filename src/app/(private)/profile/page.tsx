@@ -1,12 +1,12 @@
 'use client'
 
 import { ufs } from "@/helpers/ufs";
-import {  useContext, useEffect, useState } from "react";
+import {  ChangeEvent, useContext, useEffect, useState } from "react";
 import { UserContext } from "../layout";
 import { User } from "@/app/(public)/cadastro/helpers/types";
 import { formatPhoneNumber } from "@/helpers/formatPhone";
 import { formatCEP } from "@/helpers/formatCEP";
-import { getCities } from "@/app/(public)/cadastro/actions";
+import { getCities, handleUpdateUser, handleUpload } from "@/app/(public)/cadastro/actions";
 import Cookies from 'js-cookie';
 import { BASE_URL } from "@/helpers/constants";
 import Swal from "sweetalert2";
@@ -15,11 +15,11 @@ const ProfilePage = () => {
   const user = useContext<User>(UserContext);
   const [userData, setUserData] = useState(user);
   const [cities, setCities] = useState([]);
+  const [photo, setPhoto] = useState(userData?.imagem_url || '');
   const token = Cookies.get('token');
   const { 
      email,
      name,
-     imagem_url,
      telefone,
      data_nascimento,
      cep,
@@ -47,30 +47,33 @@ const ProfilePage = () => {
       setUserData({...userData, uf: e.target.value})
       getCities(e.target.value).then((data) => setCities(data))
     }
-  
-    useEffect(() => {
-      handleCitiesInput({ target: { value: uf } })
-    },[])
-  
+
+    const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          if (typeof reader.result === 'string') {
+            setPhoto(reader.result);
+            setUserData({...userData, fileUpload: file });
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    };  
+
   async function updateProfile(event: any) {
     event.preventDefault();
 
     try {
-      const res = await fetch(`${BASE_URL}/cleaner`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(userData)
-      })
-  
-       const data = await res.json()
+       const user = await handleUpdateUser(userData, userData.id)
+       await handleUpload(userData?.fileUpload, user.id)
+
        Swal.fire({
         icon: 'success',
         title: 'Perfil atualizado com sucesso!',
       })
-       setUserData(data)
+       setUserData(user)
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -81,6 +84,11 @@ const ProfilePage = () => {
     }
   }
 
+  useEffect(() => {
+    handleCitiesInput({ target: { value: uf } })
+  },[])
+
+
   return (
     <div className="mx-auto max-w-2xl	my-8">
       <form onSubmit={updateProfile}>
@@ -89,10 +97,31 @@ const ProfilePage = () => {
         <h3 className="text-xl font-bold mb-4 text-center">Bem Vindo(a) {name}</h3>
         
         <div className="flex justify-center items-center mb-4">
+          <div className="mb-4 flex justify-center items-center flex-col">
           <div 
-            className="w-32 h-32 bg-gray-200 rounded-full overflow-hidden bg-cover bg-center" 
-            style={{ backgroundImage: `url(${imagem_url})` }}>
+            onClick={() => document.getElementById('photo')?.click()}
+            className="w-32 h-32 bg-gray-200 rounded-full overflow-hidden mb-2 cursor-pointer"
+          >
+            {photo ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={photo} alt="User" className="w-full h-full object-cover" />
+            ) : (
+              <div className="flex justify-center items-center w-full h-full text-gray-400">
+                <span className="text-4xl">+</span>
+              </div>
+            )}
           </div>
+
+          <input
+            type="file"
+            id="photo"
+            name="photo"
+            accept="image/*"
+            onChange={handlePhotoChange}
+            className="mt-1 block w-full hidden"
+          />
+      </div>
+
         </div>
 
           <div className="mb-4">

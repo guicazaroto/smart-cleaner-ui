@@ -51,3 +51,21 @@ export const handleCreateUser = async (userData: any) => {
   const user = await res.json();
   return user.data;
 }
+
+export const handleUpdateUser = async (userData: any, userId: any) => {
+  const res = await fetch(`${BASE_URL}/cleaner/${userId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    },
+    body: JSON.stringify(userData),
+  });
+
+  if (!res.ok) {
+    throw new Error(`HTTP error! status: ${res.status}`);
+  }
+
+  const user = await res.json();
+  return user;
+}
