@@ -27,7 +27,8 @@ const LoginPage = () => {
     })
  
     if (response.ok) {
-      Cookies.set('token', await response.text());
+      const data = await response.json()
+      Cookies.set('token', data.token);
       return router.push('/profile')
     } else {
       Swal.fire({

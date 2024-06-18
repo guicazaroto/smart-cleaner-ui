@@ -13,6 +13,8 @@ export default async function Perfil ({params}: { params: { userId: string }} ) 
   const user = await getUserById(params.userId)
   const {data } = user
 
+  console.log(data)
+
   return (
     <div className="py-5 min-h-screen bg-gray-100 flex justify-around">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-lg">

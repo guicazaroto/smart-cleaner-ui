@@ -1,10 +1,12 @@
 'use client'
-import {  useEffect, useState } from "react";
+import {  createContext, useContext } from "react";
 import "../globals.css";
 import Head from "./head";
-import { BASE_URL } from "@/helpers/constants";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
+import { useAuth } from "./profile/useAuth";
+import { User } from "../(public)/cadastro/helpers/types";
+
+export const UserContext = createContext({} as User);
 
 export default function RootLayout({
   children,
@@ -12,44 +14,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const router = useRouter();
-  const [user, setUser] = useState(null);
+  const user = useAuth(router);
 
-  useEffect(() => {
-    async function getMe() {
-      const token = Cookies.get("token");
-
-      if (!token) {
-        router.push("/entrar");
-        return;
-      }
-
-      const response = await fetch(`${BASE_URL}/me`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        Cookies.remove("token");
-        router.push("/entrar");
-      }
-
-      const user = await response.json();
-      
-      setUser(user);
-      sessionStorage.setItem("user", JSON.stringify(user));
-    }
-
-    getMe();
-  }
-  , [router]);
   
   return (
     <html lang="en">
       <body>
-       <Head />
-       {user ? (
-         <main>{children}</main>
+      {user ? (
+        <UserContext.Provider value={user}>
+          <Head />
+          <main>{children}</main>
+        </UserContext.Provider>
        ) : (
         <div className="flex items-center justify-center h-screen">
           <div className="relative">
