@@ -14,7 +14,8 @@ export const ContactModal = () => {
     setMessage(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event:any) => {
+    event.preventDefault();
     console.log('Enviando mensagem:', message);
     toggleModal();
   };
@@ -56,20 +57,24 @@ export const ContactModal = () => {
                   </svg>
                 </button>
               </div>
-              <textarea
-                className="w-full h-32 p-2 border border-gray-300 rounded resize-none"
-                placeholder="Digite sua mensagem..."
-                value={message}
-                onChange={handleMessageChange}
-              ></textarea>
-              <div className="flex justify-end w-full mt-4">
-                <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none"
-                  onClick={handleSubmit}
-                >
-                  Enviar
-                </button>
-              </div>
+              <form onSubmit={handleSubmit}>
+                <input required name='name' type='text' placeholder='Nome' className='w-full p-2 border border-gray-300 rounded mb-4' />
+                <input required name='email' type='email' placeholder='Email' className='w-full p-2 border border-gray-300 rounded mb-4' />
+                <input required name="telefone" type="text" placeholder="Telefone" className="w-full p-2 border border-gray-300 rounded mb-4" />
+                <textarea
+                  className="w-full h-32 p-2 border border-gray-300 rounded resize-none"
+                  placeholder="Digite sua mensagem..."
+                  value={message}
+                  onChange={handleMessageChange}
+                ></textarea>
+                  <div className="flex justify-end w-full mt-4">
+                    <button
+                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none"
+                    >
+                      Enviar
+                    </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
