@@ -1,12 +1,11 @@
 'use client'
-import {  createContext, useContext } from "react";
+import {  createContext } from "react";
 import "../globals.css";
 import Head from "./head";
 import { useRouter } from "next/navigation";
 import { useAuth } from "./profile/useAuth";
-import { User } from "../(public)/cadastro/helpers/types";
+import { UserContext } from "./context";
 
-export const UserContext = createContext({} as User);
 
 export default function RootLayout({
   children,

@@ -1,9 +1,9 @@
 'use client'
 import Link from 'next/link';
 import { useContext, useState } from 'react';
-import { UserContext } from './layout';
 import { User } from '../(public)/cadastro/helpers/types';
 import Cookies from 'js-cookie';
+import { UserContext } from './context';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);

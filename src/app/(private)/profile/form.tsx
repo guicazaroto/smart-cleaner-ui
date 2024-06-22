@@ -2,13 +2,13 @@
 
 import { ufs } from "@/helpers/ufs";
 import {  ChangeEvent, useContext, useEffect, useState } from "react";
-import { UserContext } from "../layout";
 import { User } from "@/app/(public)/cadastro/helpers/types";
 import { formatPhoneNumber } from "@/helpers/formatPhone";
 import { formatCEP } from "@/helpers/formatCEP";
 import { getCities, handleUpdateUser, handleUpload } from "@/app/(public)/cadastro/actions";
 import Swal from "sweetalert2";
 import Tabs from "./tabs";
+import { UserContext } from "../context";
 
 const ProfileForm = () => {
   const user = useContext<User>(UserContext);
