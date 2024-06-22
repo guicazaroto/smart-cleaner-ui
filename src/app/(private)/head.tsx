@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link';
 import { useContext, useState } from 'react';
-import { User } from '../app/(public)/cadastro/helpers/types';
+import { User } from '../../app/(public)/cadastro/helpers/types';
 import Cookies from 'js-cookie';
 import { UserContext } from './context';
 
