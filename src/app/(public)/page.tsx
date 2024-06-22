@@ -19,11 +19,14 @@ const LandingPage = () => {
           </a>
         </div>
 
-        <img 
+        <Image 
           src="/banner.jpeg" 
           alt="Imagem do serviço" 
           className="rounded-lg shadow-md" 
-          width={500}
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ width: 500, height: 'auto' }} 
         />  
         </div>
       </section>
