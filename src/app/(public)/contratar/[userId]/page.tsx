@@ -10,7 +10,7 @@ export async function generateStaticParams() {
   return usersIds;
 }
 
-export default async function Perfil ({params}: { params: { userId: string }} ) {
+export default async function Perfil ({ params }: { params: { userId: string }} ) {
   const user = await getUserById(params.userId)
   const {data } = user
 
