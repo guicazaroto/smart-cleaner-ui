@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom'
 import { fireEvent, render, screen } from '@testing-library/react'
-import Page from '../src/app/(public)/entrar/page'
-import { mockFetch } from '../mockFetch';
+import Page from '@/app/(public)/entrar/page'
+import { mockFetch } from '../../../mockFetch';
 
 // mock useRouter
 jest.mock('next/navigation', () => ({
@@ -10,7 +10,7 @@ jest.mock('next/navigation', () => ({
   }),
 }))
 
-describe('Page', () => {
+describe('(public)/entrar/page', () => {
   it('renders a heading', () => {
      render(<Page />)
  
