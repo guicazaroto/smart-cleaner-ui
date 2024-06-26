@@ -3,20 +3,15 @@ import { useState } from 'react';
 
 export const ContactModal = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [message, setMessage] = useState('');
 
  const toggleModal = () => { 
    document.body.classList.toggle('overflow-hidden');
    setIsOpen(!isOpen);
   }
 
-  const handleMessageChange = (event: any) => {
-    setMessage(event.target.value);
-  };
 
   const handleSubmit = (event:any) => {
     event.preventDefault();
-    console.log('Enviando mensagem:', message);
     toggleModal();
   };
 
@@ -62,10 +57,9 @@ export const ContactModal = () => {
                 <input required name='email' type='email' placeholder='Email' className='w-full p-2 border border-gray-300 rounded mb-4' />
                 <input required name="telefone" type="text" placeholder="Telefone" className="w-full p-2 border border-gray-300 rounded mb-4" />
                 <textarea
+                  name='text'
                   className="w-full h-32 p-2 border border-gray-300 rounded resize-none"
                   placeholder="Digite sua mensagem..."
-                  value={message}
-                  onChange={handleMessageChange}
                 ></textarea>
                   <div className="flex justify-end w-full mt-4">
                     <button

@@ -10,6 +10,13 @@ const Tabs = () => {
     setActiveTab(tab);
   };
 
+  const messages = [
+    { id: 1, name: 'João Henrique', email: 'joao@example.com', telefone: '(27) 3233-32323', text: 'Olá, como vai? gostaria de saber quanto cobra para lavar uma garagem, favor entrar em contato via email.' },
+    { id: 2, name: 'Maria Madalena', email: 'maria@example.com',telefone: '(27) 3233-32323', text: 'Precisamos discutir o projeto.' },
+    { id: 3, name: 'Carlos Imperial', email: 'carlos@example.com', telefone: '(27) 3233-32323', text: 'Lembre-se da reunião amanhã.' },
+  ];
+
+
   return (
     <div className="max-w-2xl mx-auto my-10">
       <div className="flex bg-gray-100 border-b border-gray-300">
@@ -33,7 +40,7 @@ const Tabs = () => {
 
       <div className="bg-white p-4 border-l border-r border-b rounded-b border-gray-300">
         {activeTab === 'profile' && <Profile />}
-        {activeTab === 'messages' && <MessagesTab />}
+        {activeTab === 'messages' && <MessagesTab messages={messages} />}
       </div>
     </div>
   );
