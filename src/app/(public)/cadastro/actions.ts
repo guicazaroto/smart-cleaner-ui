@@ -1,6 +1,7 @@
 import { compressImage } from "@/helpers/compressor";
 import { BASE_URL } from "@/helpers/constants";
 import { revalidateTag } from 'next/cache'
+import Cookies from "js-cookie";
 
 export const getCities = async (uf: string) => {
   const res = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`);
@@ -57,7 +58,7 @@ export const handleUpdateUser = async (userData: any, userId: any) => {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
+      'Authorization': `Bearer ${Cookies.get('token')}`
     },
     body: JSON.stringify(userData),
   });

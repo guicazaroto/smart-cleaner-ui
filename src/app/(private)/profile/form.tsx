@@ -7,7 +7,6 @@ import { formatPhoneNumber } from "@/helpers/formatPhone";
 import { formatCEP } from "@/helpers/formatCEP";
 import { getCities, handleUpdateUser, handleUpload } from "@/app/(public)/cadastro/actions";
 import Swal from "sweetalert2";
-import Tabs from "./tabs";
 import { UserContext } from "../context";
 
 const ProfileForm = () => {
