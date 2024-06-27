@@ -14,9 +14,9 @@ export const useAuth = (router: any) => {
         return;
       }
 
-      const response = await fetch(`${BASE_URL}/me`, {
+      const response = await fetch(`${BASE_URL}/cleaner/me`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: token,
         },
       });
 

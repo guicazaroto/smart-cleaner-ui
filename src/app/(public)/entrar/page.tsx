@@ -3,7 +3,7 @@ import React, { FormEvent } from 'react';
 import { useRouter } from 'next/navigation'
 import Swal from 'sweetalert2';
 import Cookies from 'js-cookie';
-import { BASE_URL } from '@/helpers/constants';
+import { BASE_URL, DEFAULT_TOKEN } from '@/helpers/constants';
 
 const LoginPage = () => {
   const router = useRouter();
@@ -20,9 +20,12 @@ const LoginPage = () => {
   };
 
   async function getCredentials(email: string, password: string) {
-    const response = await fetch(`${BASE_URL}/auth`, {
+    const response = await fetch(`${BASE_URL}/cleaner/login`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': DEFAULT_TOKEN
+      },
       body: JSON.stringify({ email, password }),
     })
  

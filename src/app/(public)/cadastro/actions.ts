@@ -1,5 +1,5 @@
 import { compressImage } from "@/helpers/compressor";
-import { BASE_URL } from "@/helpers/constants";
+import { BASE_URL, DEFAULT_TOKEN } from "@/helpers/constants";
 import { revalidateTag } from 'next/cache'
 import Cookies from "js-cookie";
 
@@ -25,6 +25,9 @@ export const handleUpload = async (photo: any, userId: string) => {
   const response = await fetch(`${BASE_URL}/cleaner/${userId}/img`, {
     method: 'POST',
     body: formData,
+    headers: {
+      'Authorization': DEFAULT_TOKEN
+    }
   });
 
   if (!response.ok) {
@@ -39,7 +42,7 @@ export const handleCreateUser = async (userData: any) => {
   const res = await fetch(`${BASE_URL}/cleaner`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Authorization': DEFAULT_TOKEN
     },
     body: JSON.stringify(userData),
   });
