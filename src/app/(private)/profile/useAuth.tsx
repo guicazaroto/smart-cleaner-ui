@@ -37,6 +37,5 @@ export const useAuth = (router: any) => {
   }
   , [router]);
 
-
-  return user.data;
+  return user;
 }
