@@ -11,6 +11,8 @@ env:
   PROJECT_NAME: ${{ vars.PROJECT_NAME }}
   TAG: latest
   STACK_NAME: "64bit Amazon Linux 2 v3.5.7 running Docker"
+  NEXT_PUBLIC_API_URL: "http://production-api.eba-ecm2h3cp.us-east-1.elasticbeanstalk.com/api/v1"
+  NEXT_PUBLIC_DEFAULT_TOKEN: "3PZfbe0A9xxy9c4u4ozBMGQvw2FIpdJxcp3dHO1wgGg3WWz2DQ5L08Jt2ekvd"
 jobs:
   build:
     runs-on: ubuntu-latest
