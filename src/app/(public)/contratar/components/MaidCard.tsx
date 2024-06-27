@@ -20,8 +20,8 @@ const MaidCard = ({ maid }: any) => {
         <p className="text-gray-700 text-base">
           {cidade} - {uf}
         </p>
-        <p className='mt-3' style={{minHeight: '100px' }}>
-          {descricao.substring(0, 100)}...
+        <p className='mt-3' style={{minHeight: '50px' }}>
+          {descricao?.substring(0, 100)}...
         </p>
       </div>
       <div className="px-6 pb-4">

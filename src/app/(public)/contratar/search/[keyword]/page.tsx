@@ -10,6 +10,7 @@ import { getUsers } from '../../services/getUsers';
 export default async function SearchPage ({ params: { keyword }}: any) {
   const maids = await getUsers(keyword)
 
+
   return (
     <>
     <SearchBanner />
