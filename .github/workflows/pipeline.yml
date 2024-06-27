@@ -17,6 +17,7 @@ jobs:
     env:
       MODULE_FULLNAME: ${{ vars.PROJECT_NAME }}
       REGISTRY_URL: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com
+      NEXT_PUBLIC_API_URL: "91qe7JRrp68TBoD2elUbbqewB7Iiyo8Yh5rpEPVZYj2gseruhQ8tcv00XwvKEP8j"
     steps:
     - uses: actions/checkout@v3
     - run: docker build -t $MODULE_FULLNAME .
