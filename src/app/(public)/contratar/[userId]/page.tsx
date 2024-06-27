@@ -3,17 +3,10 @@ import { getUsers } from "../services/getUsers";
 import { User } from "../../cadastro/helpers/types";
 import { ContactModal } from "./components/contact-modal";
 
-export async function generateStaticParams() {
-  const users = await getUsers();
-  const usersIds = users.data.map((user: User) => ({ userId: String(user.id) }));
-
-  return usersIds;
-}
 
 export default async function Perfil ({ params }: { params: { userId: string }} ) {
   const user = await getUserById(params.userId)
   const {data } = user
-  console.log(data)
 
   return (
     <div className="py-5 min-h-screen bg-gray-100 flex justify-around">
