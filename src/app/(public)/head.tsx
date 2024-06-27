@@ -37,7 +37,7 @@ const Header = () => {
             </svg>
           </button>
           <nav className={`${isMenuOpen ? 'block' : 'hidden'} lg:block`}>
-            <ul className={`flex flex-col lg:flex-row lg:items-center lg:space-x-8 ${isMenuOpen ? 'absolute top-16 left-0 w-full bg-white p-4 shadow-lg' : 'hidden'} lg:static lg:shadow-none lg:bg-transparent lg:p-0 lg:flex`}>
+            <ul className={`z-50 flex flex-col lg:flex-row lg:items-center lg:space-x-8 ${isMenuOpen ? 'absolute top-16 left-0 w-full bg-white p-4 shadow-lg' : 'hidden'} lg:static lg:shadow-none lg:bg-transparent lg:p-0 lg:flex`}>
               <li className={`mt-2 lg:mt-0 ${pathname === '/' ? 'text-blue-500' : ''}`}>
                 <a href="/">Início</a>
               </li>

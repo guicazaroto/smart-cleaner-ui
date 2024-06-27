@@ -1,7 +1,5 @@
 import { compressImage } from "@/helpers/compressor";
 import { BASE_URL, DEFAULT_TOKEN } from "@/helpers/constants";
-import { revalidateTag } from 'next/cache'
-import Cookies from "js-cookie";
 
 export const getCities = async (uf: string) => {
   const res = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`);
@@ -34,7 +32,6 @@ export const handleUpload = async (photo: any, userId: string) => {
     throw new Error('Falha ao fazer upload');
   }
 
-  revalidateTag('get-users');
   return response.json();
 };
 
@@ -57,11 +54,11 @@ export const handleCreateUser = async (userData: any) => {
 }
 
 export const handleUpdateUser = async (userData: any, userId: any) => {
-  const res = await fetch(`${BASE_URL}/cleaner/${userId}`, {
-    method: 'PATCH',
+  const res = await fetch(`${BASE_URL}/cleaner`, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${Cookies.get('token')}`
+      'Authorization': DEFAULT_TOKEN
     },
     body: JSON.stringify(userData),
   });

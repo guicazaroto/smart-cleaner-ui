@@ -5,7 +5,7 @@ export async function getUsers(keyword?: string) {
   
   const response = await fetch(url, {
     next: {
-      tags: ['get-users'],
+      tags: ['users'],
     },
     headers:{
       'Content-Type': 'application/json',

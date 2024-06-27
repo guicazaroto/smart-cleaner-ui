@@ -8,6 +8,7 @@ import {  ProfileFormProps } from "../helpers/types";
 import { getCities, handleCreateUser, handleUpload } from "../actions";
 import { useRouter } from 'next/navigation';
 import { revalidateTag } from 'next/cache'
+import { Loader } from "@/components/loader";
 
 export default function ProfileForm (
   {  
@@ -71,6 +72,8 @@ export default function ProfileForm (
       push('/contratar')
       
     } catch (error) {
+      debugger;
+
       Swal.fire({
         icon: 'error',
         title: 'Erro ao cadastrar',
@@ -78,10 +81,11 @@ export default function ProfileForm (
       });
     } finally {
       setPending(false);
+      revalidateTag('users');
     }
   }
   
-  
+  if (pending) return <Loader />;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -279,7 +283,7 @@ export default function ProfileForm (
         type="submit" 
         className={`w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600`}
       >
-        {pending ? 'Carregando...' : 'Cadastrar'}
+        {pending ? 'Salvando...' : 'Cadastrar'}
       </button>
       <button 
         className="bg-gray-400 text-white rounded py-2 w-full mt-3"
