@@ -35,6 +35,30 @@ export const handleUpload = async (photo: any, userId: string) => {
   return response.json();
 };
 
+export const handleUpdateImage = async (photo: any, userId: string, token: string) => {
+  if (!photo) return;
+
+  const formData = new FormData();
+  const compressedFile = await compressImage(photo) as File;
+
+  formData.append('file', compressedFile);
+
+  const response = await fetch(`${BASE_URL}/cleaner/${userId}/img`, {
+    method: 'PATCH',
+    body: formData,
+    headers: {
+      'Authorization': token
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error('Falha ao fazer upload');
+  }
+
+  return response.json();
+};
+
+
 export const handleCreateUser = async (userData: any) => {
   const res = await fetch(`${BASE_URL}/cleaner`, {
     method: 'POST',

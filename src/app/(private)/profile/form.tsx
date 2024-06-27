@@ -5,9 +5,10 @@ import {  ChangeEvent, useContext, useEffect, useState } from "react";
 import { User } from "@/app/(public)/cadastro/helpers/types";
 import { formatPhoneNumber } from "@/helpers/formatPhone";
 import { formatCEP } from "@/helpers/formatCEP";
-import { getCities, handleUpdateUser, handleUpload } from "@/app/(public)/cadastro/actions";
+import { getCities, handleUpdateImage, handleUpdateUser, handleUpload } from "@/app/(public)/cadastro/actions";
 import Swal from "sweetalert2";
 import { UserContext } from "../context";
+import Cookies from "js-cookie";
 
 const ProfileForm = () => {
   const user = useContext<User>(UserContext);
@@ -51,10 +52,11 @@ const ProfileForm = () => {
 
   async function updateProfile(event: any) {
     event.preventDefault();
+    const token = Cookies.get("token") as string
 
     try {
        const user = await handleUpdateUser(userData, userData.id)
-       await handleUpload(userData?.fileUpload, user.id)
+       await handleUpdateImage(userData?.fileUpload, user.id, token)
 
        Swal.fire({
         icon: 'success',

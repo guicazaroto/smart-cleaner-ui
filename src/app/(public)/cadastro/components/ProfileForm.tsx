@@ -7,7 +7,6 @@ import { ufs } from "@/helpers/ufs";
 import {  ProfileFormProps } from "../helpers/types";
 import { getCities, handleCreateUser, handleUpload } from "../actions";
 import { useRouter } from 'next/navigation';
-import { revalidateTag } from 'next/cache'
 import { Loader } from "@/components/loader";
 
 export default function ProfileForm (
@@ -81,7 +80,6 @@ export default function ProfileForm (
       });
     } finally {
       setPending(false);
-      revalidateTag('users');
     }
   }
   

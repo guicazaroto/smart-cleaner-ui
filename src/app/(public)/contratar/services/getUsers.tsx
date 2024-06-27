@@ -4,6 +4,7 @@ export async function getUsers(keyword?: string) {
   const url = keyword ? `${BASE_URL}/cleaner/search?city=${keyword}` : `${BASE_URL}/cleaner/search`
   
   const response = await fetch(url, {
+    cache: 'no-store',
     next: {
       tags: ['users'],
     },
