@@ -20,6 +20,7 @@ const LandingPage = () => {
         </div>
 
         <Image 
+          priority
           src="/banner.jpeg" 
           alt="Imagem do serviço" 
           className="rounded-lg shadow-md" 
