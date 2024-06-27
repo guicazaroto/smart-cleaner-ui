@@ -24,7 +24,7 @@ export const handleUpload = async (photo: any, userId: string) => {
     method: 'POST',
     body: formData,
     headers: {
-      'Authorization': DEFAULT_TOKEN
+      'Authorization': DEFAULT_TOKEN!
     }
   });
 
@@ -63,7 +63,7 @@ export const handleCreateUser = async (userData: any) => {
   const res = await fetch(`${BASE_URL}/cleaner`, {
     method: 'POST',
     headers: {
-      'Authorization': DEFAULT_TOKEN
+      'Authorization': DEFAULT_TOKEN!
     },
     body: JSON.stringify(userData),
   });

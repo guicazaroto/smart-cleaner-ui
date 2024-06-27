@@ -8,7 +8,7 @@ export async function getUserById(userId: string) {
     },
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': DEFAULT_TOKEN
+      'Authorization': DEFAULT_TOKEN!
     }
   });
   

@@ -10,7 +10,7 @@ export async function getUsers(keyword?: string) {
     },
     headers:{
       'Content-Type': 'application/json',
-      'Authorization': DEFAULT_TOKEN
+      'Authorization': DEFAULT_TOKEN!
     }
   });
   
