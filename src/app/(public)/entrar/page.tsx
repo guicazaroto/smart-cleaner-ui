@@ -24,7 +24,7 @@ const LoginPage = () => {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
-        'Authorization': DEFAULT_TOKEN
+        'Authorization': DEFAULT_TOKEN!
       },
       body: JSON.stringify({ email, password }),
     })
