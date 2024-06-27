@@ -11,16 +11,17 @@ env:
   PROJECT_NAME: ${{ vars.PROJECT_NAME }}
   TAG: latest
   STACK_NAME: "64bit Amazon Linux 2 v3.5.7 running Docker"
+  PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+  PUBLIC_DEFAULT_TOKEN: ${{ secrets.NEXT_PUBLIC_DEFAULT_TOKEN }}
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
       MODULE_FULLNAME: ${{ vars.PROJECT_NAME }}
       REGISTRY_URL: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com
-      NEXT_PUBLIC_API_URL: "http://production-api.eba-ecm2h3cp.us-east-1.elasticbeanstalk.com/api/v1"
     steps:
     - uses: actions/checkout@v3
-    - run: docker build -t $MODULE_FULLNAME .
+    - run: docker build --build-arg PUBLIC_API_URL=$PUBLIC_API_URL --build-arg PUBLIC_DEFAULT_TOKEN=$PUBLIC_DEFAULT_TOKEN -t $MODULE_FULLNAME .
     - run: |
         docker tag $MODULE_FULLNAME:$TAG \
         $REGISTRY_URL/$MODULE_FULLNAME:$TAG
