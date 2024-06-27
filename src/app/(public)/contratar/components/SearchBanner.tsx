@@ -27,7 +27,10 @@ const SearchBanner = () => {
 
   const handleSearch = (e:any) => {
     e.preventDefault();
-    router.push(`/contratar/search/${search}`);
+
+    if(search) {
+      router.push(`/contratar/search/${search}`);
+    }
   };
 
   return (
