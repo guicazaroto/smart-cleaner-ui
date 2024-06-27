@@ -7,6 +7,7 @@ import { ufs } from "@/helpers/ufs";
 import {  ProfileFormProps } from "../helpers/types";
 import { getCities, handleCreateUser, handleUpload } from "../actions";
 import { useRouter } from 'next/navigation';
+import { revalidateTag } from 'next/cache'
 
 export default function ProfileForm (
   {  
@@ -80,6 +81,7 @@ export default function ProfileForm (
     }
   }
   
+  
 
   return (
     <form onSubmit={handleSubmit}>
@@ -99,6 +101,7 @@ export default function ProfileForm (
         </div>
 
         <input
+          disabled={pending}
           type="file"
           id="photo"
           name="photo"
@@ -115,6 +118,7 @@ export default function ProfileForm (
         <div className="mb-4">
           <label htmlFor="name" className="w-full block text-sm font-medium text-gray-700 mb-1">Nome</label>
           <input
+            disabled={pending}
             required
             type="text"
             id="name"
@@ -129,6 +133,7 @@ export default function ProfileForm (
         <div className="mb-4">
           <label htmlFor="telefone" className="block text-sm font-medium text-gray-700 mb-1">Telefone</label>
           <input
+            disabled={pending}
             required
             type="tel"
             id="telefone"
@@ -141,6 +146,7 @@ export default function ProfileForm (
         <div className="mb-4">
           <label htmlFor="cpf" className="block text-sm font-medium text-gray-700 mb-1">CPF</label>
           <input
+            disabled={pending}
             required
             type="text"
             id="cpf"
@@ -153,6 +159,7 @@ export default function ProfileForm (
         <div className="mb-4">
           <label htmlFor="data_nascimento" className="block text-sm font-medium text-gray-700 mb-1">Data de Nascimento</label>
           <input
+            disabled={pending}
             required
             type="date"
             id="data_nascimento"
@@ -166,6 +173,7 @@ export default function ProfileForm (
         <div className="mb-4">
           <label htmlFor="cep" className="block text-sm font-medium text-gray-700 mb-1">CEP</label>
           <input
+            disabled={pending}
             required
             type="text"
             id="cep"
@@ -181,6 +189,7 @@ export default function ProfileForm (
             Estado
           </label>
           <select
+            disabled={pending}
             required
             id="uf"
             name="uf"
@@ -207,7 +216,7 @@ export default function ProfileForm (
             required
             id="cidade"
             name="cidade"
-            disabled={!userData.uf || !cities.length}
+            disabled={!userData.uf || !cities.length || pending}
             value={userData.cidade}
             onChange={(e) => setUserData({...userData, cidade: e.target.value})}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -224,6 +233,7 @@ export default function ProfileForm (
         <div className="mb-4">
           <label htmlFor="logradouro" className="block text-sm font-medium text-gray-700 mb-1">Rua</label>
           <input
+            disabled={pending}
             required
             type="text"
             id="logradouro"
@@ -237,6 +247,7 @@ export default function ProfileForm (
         <div className="mb-4">
           <label htmlFor="number" className="block text-sm font-medium text-gray-700 mb-1">Número</label>
           <input
+            disabled={pending}
             required
             type="text"
             id="number"
@@ -250,6 +261,7 @@ export default function ProfileForm (
         <div className="col-span-2 mb-4">
           <label htmlFor="descricao" className="block text-sm font-medium text-gray-700 mb-1">Descrição</label>
           <textarea
+            disabled={pending}
             id="descricao"
             name="descricao"
             rows={3}
