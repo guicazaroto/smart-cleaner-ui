@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
       {user ? (
-        <UserContext.Provider value={user}>
+        <UserContext.Provider value={user.data}>
           <Head />
           <main>{children}</main>
         </UserContext.Provider>

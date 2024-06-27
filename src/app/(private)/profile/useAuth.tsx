@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { BASE_URL } from "@/helpers/constants";
 
 export const useAuth = (router: any) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     async function getMe() {
