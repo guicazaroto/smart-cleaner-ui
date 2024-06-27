@@ -5,7 +5,7 @@ import {  ChangeEvent, useContext, useEffect, useState } from "react";
 import { User } from "@/app/(public)/cadastro/helpers/types";
 import { formatPhoneNumber } from "@/helpers/formatPhone";
 import { formatCEP } from "@/helpers/formatCEP";
-import { getCities, handleUpdateImage, handleUpdateUser, handleUpload } from "@/app/(public)/cadastro/actions";
+import { getCities, handleUpdateImage, handleUpdateUser } from "@/app/(public)/cadastro/actions";
 import Swal from "sweetalert2";
 import { UserContext } from "../context";
 import Cookies from "js-cookie";
@@ -55,14 +55,13 @@ const ProfileForm = () => {
     const token = Cookies.get("token") as string
 
     try {
-       const user = await handleUpdateUser(userData, userData.id)
+       const user = await handleUpdateUser(userData, token)
        await handleUpdateImage(userData?.fileUpload, user.id, token)
 
        Swal.fire({
         icon: 'success',
         title: 'Perfil atualizado com sucesso!',
       })
-       setUserData(user)
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -83,7 +82,7 @@ const ProfileForm = () => {
       <form onSubmit={updateProfile}>
         <div className="grid grid-cols-1 gap-4">
         <h2 className="text-2xl font-bold mb-4 text-center">Meu Perfil</h2>
-        <h3 className="text-xl font-bold mb-4 text-center">Bem Vindo(a) {name}</h3>
+        <h3 className="text-xl font-bold mb-4 text-center">Bem Vindo(a) {userData.name}</h3>
         
         <div className="flex justify-center items-center mb-4">
           <div className="mb-4 flex justify-center items-center flex-col">

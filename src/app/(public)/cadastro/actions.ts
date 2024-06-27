@@ -77,12 +77,12 @@ export const handleCreateUser = async (userData: any) => {
   return user.data;
 }
 
-export const handleUpdateUser = async (userData: any, userId: any) => {
+export const handleUpdateUser = async (userData: any, token: string) => {
   const res = await fetch(`${BASE_URL}/cleaner`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': DEFAULT_TOKEN
+      'Authorization': token
     },
     body: JSON.stringify(userData),
   });

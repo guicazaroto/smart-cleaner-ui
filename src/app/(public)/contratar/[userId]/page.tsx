@@ -13,6 +13,7 @@ export async function generateStaticParams() {
 export default async function Perfil ({ params }: { params: { userId: string }} ) {
   const user = await getUserById(params.userId)
   const {data } = user
+  console.log(data)
 
   return (
     <div className="py-5 min-h-screen bg-gray-100 flex justify-around">
