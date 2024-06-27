@@ -1,6 +1,4 @@
 import { getUserById } from "./services/get-user-profile"
-import { getUsers } from "../services/getUsers";
-import { User } from "../../cadastro/helpers/types";
 import { ContactModal } from "./components/contact-modal";
 
 
