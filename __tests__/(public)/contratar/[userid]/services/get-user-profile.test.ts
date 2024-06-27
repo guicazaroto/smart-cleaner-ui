@@ -22,6 +22,7 @@ describe('getUserById function', () => {
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(global.fetch).toHaveBeenCalledWith(`${BASE_URL}/cleaner/${userId}`, {
       "next": {"tags": ["get-user-by-id"]},
+      "cache": "no-store",
       "headers": {
           "Authorization": "http://production-api.eba-ecm2h3cp.us-east-1.elasticbeanstalk.com/api/v1",
           "Content-Type": "application/json",
@@ -41,6 +42,7 @@ describe('getUserById function', () => {
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(global.fetch).toHaveBeenCalledWith(`${BASE_URL}/cleaner/${userId}`, 
     {"next": {"tags": ["get-user-by-id"]},
+    "cache": "no-store",
     "headers": {
       "Authorization": "http://production-api.eba-ecm2h3cp.us-east-1.elasticbeanstalk.com/api/v1",
       "Content-Type": "application/json",
