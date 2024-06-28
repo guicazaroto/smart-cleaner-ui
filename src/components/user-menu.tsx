@@ -11,7 +11,7 @@ export const UserMenu = ({ user }: any) => {
 
   const clearSession = () => {
     sessionStorage.clear();
-    window.location.href = '/entrar';
+    window.location.href = '/';
     Cookies.remove('token');
   }
 
