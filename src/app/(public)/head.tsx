@@ -3,11 +3,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { UserMenu } from '@/components/user-menu';
+import Cookies from 'js-cookie';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
-  const userData = sessionStorage.getItem('user') || '';
+  const userData = Cookies.get('user') || '';
   const user = userData ? JSON.parse(userData) : null;
 
   return (

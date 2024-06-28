@@ -30,7 +30,7 @@ export const useAuth = (router: any) => {
       const user = await response.json();
       
       setUser(user);
-      sessionStorage.setItem("user", JSON.stringify(user));
+      Cookies.set("user", JSON.stringify(user));
     }
 
     getMe();

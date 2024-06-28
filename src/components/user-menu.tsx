@@ -1,3 +1,4 @@
+'use client'
 import Cookies from 'js-cookie';
 import Link from 'next/link';
 import { useState } from "react";
@@ -10,7 +11,7 @@ export const UserMenu = ({ user }: any) => {
   };
 
   const clearSession = () => {
-    sessionStorage.clear();
+    Cookies.remove('user');
     window.location.href = '/';
     Cookies.remove('token');
   }
