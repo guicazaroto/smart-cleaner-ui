@@ -10,8 +10,6 @@ import { getUsers } from './services/getUsers';
 export default async function MaidsPage () {
   const maids = await getUsers()
 
-  console.log(maids)
-
   return (
     <>
     <SearchBanner />

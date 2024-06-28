@@ -16,7 +16,7 @@ export default async function Perfil ({ params }: { params: { userId: string }} 
             style={{ backgroundImage: `url(${data?.imagem_url})` }}>
           </div>
         </div>
-        <ContactModal />
+        <ContactModal userId={data?.id} />
         <div className="grid grid-cols-2 gap-4">
           <div className="mb-4">
             <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Nome</label>

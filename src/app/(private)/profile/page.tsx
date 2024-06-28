@@ -1,21 +1,37 @@
 'use client'
-import React, { useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { MessagesTab } from './messages';
 import Profile from './form'
+import Cookies from 'js-cookie';
+import { BASE_URL } from '@/helpers/constants';
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState('profile');
+  const [messages, setMessages] = useState([]);
 
   const handleTabClick = (tab: any) => {
     setActiveTab(tab);
   };
 
-  const messages = [
-    { id: 1, name: 'João Henrique', email: 'joao@example.com', telefone: '(27) 3233-32323', text: 'Olá, como vai? gostaria de saber quanto cobra para lavar uma garagem, favor entrar em contato via email.' },
-    { id: 2, name: 'Maria Madalena', email: 'maria@example.com',telefone: '(27) 3233-32323', text: 'Precisamos discutir o projeto.' },
-    { id: 3, name: 'Carlos Imperial', email: 'carlos@example.com', telefone: '(27) 3233-32323', text: 'Lembre-se da reunião amanhã.' },
-  ];
 
+  useEffect(() => {
+    const token = Cookies.get("token") as string
+
+    const fetchMessages = async () => {
+      const res = await fetch(`${BASE_URL}/cleaner/message`, {
+        headers: {
+          'Authorization': token
+        }
+      });
+
+      if (res.ok) {
+        const result = await res.json();
+        setMessages(result.data);
+      }
+    }
+
+    fetchMessages();
+  }, [])
 
   return (
     <div className="max-w-2xl mx-auto my-10">

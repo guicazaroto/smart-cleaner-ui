@@ -1,7 +1,9 @@
 'use client'
+import { BASE_URL, DEFAULT_TOKEN } from '@/helpers/constants';
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 
-export const ContactModal = () => {
+export const ContactModal = ({ userId }: any) => {
   const [isOpen, setIsOpen] = useState(false);
 
  const toggleModal = () => { 
@@ -9,10 +11,41 @@ export const ContactModal = () => {
    setIsOpen(!isOpen);
   }
 
+  
 
-  const handleSubmit = (event:any) => {
+  const handleSubmit = async (event:any) => {
     event.preventDefault();
+    const formData = new FormData(event.target);
+    const messageData = {
+      nome: formData.get('nome'),
+      email: formData.get('email'),
+      telefone: formData.get('telefone'),
+      message: formData.get('message'),
+    }
+
+    const res = await fetch(`${BASE_URL}/cleaner/message/${userId}`, {
+      method: 'POST',
+      headers: {
+        'Authorization': DEFAULT_TOKEN!
+      },
+      body: JSON.stringify(messageData),
+    });
+
+    if (res.ok) {
+      Swal.fire({
+        icon: 'success',
+        text: 'Mensagem enviada com sucesso!',
+      });
+    } else {
+      Swal.fire({
+        icon: 'error',
+        text: 'Erro ao enviar mensagem, tente novamente mais tarde!',
+      });
+    }
+
     toggleModal();
+
+
   };
 
   return (
@@ -53,11 +86,11 @@ export const ContactModal = () => {
                 </button>
               </div>
               <form onSubmit={handleSubmit}>
-                <input required name='name' type='text' placeholder='Nome' className='w-full p-2 border border-gray-300 rounded mb-4' />
+                <input required name='nome' type='text' placeholder='Nome' className='w-full p-2 border border-gray-300 rounded mb-4' />
                 <input required name='email' type='email' placeholder='Email' className='w-full p-2 border border-gray-300 rounded mb-4' />
                 <input required name="telefone" type="text" placeholder="Telefone" className="w-full p-2 border border-gray-300 rounded mb-4" />
                 <textarea
-                  name='text'
+                  name='message'
                   className="w-full h-32 p-2 border border-gray-300 rounded resize-none"
                   placeholder="Digite sua mensagem..."
                 ></textarea>
