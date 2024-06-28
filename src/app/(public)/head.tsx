@@ -2,10 +2,13 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { UserMenu } from '@/components/user-menu';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
+  const userData = sessionStorage.getItem('user') || '';
+  const user = userData ? JSON.parse(userData) : null;
 
   return (
     <header className="bg-white shadow-md">
@@ -47,14 +50,18 @@ const Header = () => {
               <li className={`mt-2 lg:mt-0 ${pathname === '/cadastro' ? 'text-blue-500' : ''}`}>
                 <a href="/cadastro">Trabalhe no App</a>
               </li>
-              <li className="mt-2 lg:mt-0">
-                <a
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-                  href="/entrar"
-                >
-                  Entrar
-                </a>
-              </li>
+
+              {user ? <UserMenu user={user.data} />
+              : (
+                <li className="mt-2 lg:mt-0">
+                  <a
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                    href="/entrar"
+                  >
+                    Entrar
+                  </a>
+                </li>
+              )}
             </ul>
           </nav>
         </div>
