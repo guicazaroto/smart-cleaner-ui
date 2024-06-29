@@ -12,7 +12,7 @@ Para acessar o projeto em produção visite: http://production.eba-32pvrax3.us-e
 ## Como executar o projeto
 
 ### Defina as variáveis de ambiente
-Renomeie o arquivo .env.example para .env.local e substituia as informações padrão por credenciais válidas.<br>
+Renomeie o arquivo .env.example para .env e substituia as informações padrão por credenciais válidas.<br>
 Abaixo temos o arquivo .env.example com informações fictícias.
 
 ```
