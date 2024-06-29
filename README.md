@@ -18,6 +18,7 @@ Abaixo temos o arquivo .env.example com informações fictícias.
 ```
 NEXT_PUBLIC_API_URL=http://localhost:9090
 NEXT_PUBLIC_DEFAULT_TOKEN=XYZ
+SENTRY_AUTH_TOKEN=XYZ
 ```
 
 ### Rode os comandos para instalação e execução do projeto
@@ -34,6 +35,13 @@ npm run build
 
 // para rodar a aplicação após o build 
 npm start 
+```
+
+### Testes unitários
+Para rodar os testes unitários use
+
+```
+npm run test
 ```
 
 
