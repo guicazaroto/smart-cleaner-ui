@@ -35,7 +35,7 @@ export const handleUpload = async (photo: any, userId: string) => {
   return response.json();
 };
 
-export const handleUpdateImage = async (photo: any, userId: string, token: string) => {
+export const handleUpdateImage = async (photo: any, userId: number, token: string) => {
   if (!photo) return;
 
   const formData = new FormData();

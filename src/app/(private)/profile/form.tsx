@@ -12,7 +12,7 @@ import Cookies from "js-cookie";
 
 const ProfileForm = () => {
   const user = useContext<User>(UserContext);
-  const [userData, setUserData] = useState(user);
+  const [userData, setUserData] = useState<User>(user);
   const [cities, setCities] = useState([]);
   const [photo, setPhoto] = useState(userData?.imagem_url || '');
   const { email, name, telefone, data_nascimento, cep,
@@ -55,8 +55,8 @@ const ProfileForm = () => {
     const token = Cookies.get("token") as string
 
     try {
-       const user = await handleUpdateUser(userData, token)
-       await handleUpdateImage(userData?.fileUpload, user.id, token)
+       await handleUpdateUser(userData, token)
+       await handleUpdateImage(userData?.fileUpload, userData.id!, token)
 
        Swal.fire({
         icon: 'success',
