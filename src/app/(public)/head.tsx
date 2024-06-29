@@ -2,8 +2,13 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { UserMenu } from '@/components/user-menu';
 import Cookies from 'js-cookie';
+import dynamic from 'next/dynamic';
+
+const SignInButton = dynamic(() => import('@/app/(public)/signInButton').then(mod => mod.SignInButton), {
+  ssr: false
+});
+
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -52,17 +57,7 @@ const Header = () => {
                 <a href="/cadastro">Trabalhe no App</a>
               </li>
 
-              {user ? <UserMenu user={user.data} />
-              : (
-                <li className="mt-2 lg:mt-0">
-                  <a
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-                    href="/entrar"
-                  >
-                    Entrar
-                  </a>
-                </li>
-              )}
+              <SignInButton user={user} />
             </ul>
           </nav>
         </div>
