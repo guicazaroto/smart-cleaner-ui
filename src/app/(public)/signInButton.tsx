@@ -1,7 +1,10 @@
 import { UserMenu } from "@/components/user-menu"
+import Cookies from 'js-cookie'
 
 export const SignInButton = ({ user }: any) => {
-  return user ? 
+  const token = Cookies.get('token') || '';
+
+  return (token && user) ? 
   <UserMenu user={user.data} /> : 
   (
     <li className="mt-2 lg:mt-0">
